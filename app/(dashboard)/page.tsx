@@ -1,8 +1,22 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
+
+  const handleUpload = () => {
+    router.push("/master-upload"); 
+  };
+
+  const handleWorking = () => {
+    router.push("/working"); 
+  };
+
+  const handleNewWork = () => {
+    router.push("/working/new"); 
+  };
   return (
     <div className="min-h-screen bg-white px-8 py-4">
 
@@ -45,9 +59,9 @@ export default function Home() {
 
       {/* MAIN BUTTONS */}
       <div className="flex flex-col items-center gap-8 mt-16">
-        <Button variant="big_lightblue" size="big" >基本マスタアップロード</Button>
-        <Button variant="big_lightblue" size="big" >勤務表一覧</Button>
-        <Button variant="big_lightblue" size="big" >勤務表作成</Button>
+        <Button variant="big_lightblue" size="big" onClick={handleUpload}>基本マスタアップロード</Button>
+        <Button variant="big_lightblue" size="big" onClick={handleWorking} >勤務表一覧</Button>
+        <Button variant="big_lightblue" size="big" onClick={handleNewWork} >勤務表作成</Button>
       </div>
 
     </div>
