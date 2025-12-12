@@ -3,27 +3,27 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Pagination } from "@/components/ui/pagination";
-import { Table, TableHeader, TableBody, TableRow, TableCell } from "@/components/ui/table";
+import { Table, TableHeader, TableBody, TableRow, TableCell, TableHead } from "@/components/ui/table";
 
 export default function WorkingPage() {
   const page = 1;
   const totalPages = 1;
 
   return (
-    <div className="space-y-4">
-      <h2 className="text-2xl font-bold mb-4">勤務表一覧</h2>
+    <div className="w-full p-2 ml-2">
+      <h2 className="text-2xl font-bold mb-2">勤務表一覧</h2>
 
-      <section className="bg-white p-4 rounded-xl shadow border">
-        <h3 className="text-lg font-semibold mb-4">日次勤務計画調整</h3>
-        <div className="max-h-40 overflow-y-auto">
+      <section className="bg-white p-4 rounded-xl shadow border mb-4">
+        <h3 className="text-[15px] font-semibold mb-4">日次勤務計画調整</h3>
+        <div className="max-h-50 overflow-y-auto">
           <Table className="min-w-full">
             <TableHeader>
               <TableRow>
-                <TableCell className="font-semibold">勤務表開始日</TableCell>
-                <TableCell className="font-semibold">勤務表終了日</TableCell>
-                <TableCell className="font-semibold">作成日</TableCell>
-                <TableCell className="font-semibold">最終保存日時</TableCell>
-                <TableCell className="font-semibold text-center">CSV出力</TableCell>
+                <TableHead className="font-semibold">勤務表開始日</TableHead>
+                <TableHead className="font-semibold">勤務表終了日</TableHead>
+                <TableHead className="font-semibold">作成日</TableHead>
+                <TableHead className="font-semibold">最終保存日時</TableHead>
+                <TableHead className="font-semibold text-center">CSV出力</TableHead>
               </TableRow>
             </TableHeader>
 
@@ -125,8 +125,8 @@ export default function WorkingPage() {
       </section>
 
       <section className="bg-white p-6 rounded-xl shadow border">
-        <h3 className="text-lg font-semibold mb-4">作成中・発表済み勤務計画</h3>
-        <div className="max-h-40 overflow-y-auto">
+        <h3 className="text-[15px] font-semibold mb-4">作成中・発表済み勤務計画</h3>
+        <div className="max-h-55 overflow-y-auto">
           <Table className="min-w-full">
             <TableHeader>
               <TableRow>
