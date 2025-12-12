@@ -27,6 +27,11 @@ const buttonVariants = cva(
         menuActive: "bg-blue-600 text-white h-12 px-8 text-base flex items-center justify-center",
         big_lightblue: "bg-blue-100 text-black hover:bg-blue-200 shadow rounded-none text-2xl h-[300px] flex items-center justify-center w-[500px] border-none",
         trash_button: "w-7 h-7 flex items-center justify-center rounded-full bg-black",
+        red: "w-32 py-2 bg-red-400 hover:bg-red-500 text-white rounded-lg shadow text-lg font-medium",
+        yellow: "w-32 py-2 bg-yellow-400 hover:bg-yellow-500 text-black rounded-lg shadow text-lg font-medium",
+        green: "w-32 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg shadow text-lg font-medium",
+        blue: "w-32 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg shadow text-lg font-medium",
+        greenPillTwoLine: "bg-green-500 hover:bg-green-600 text-white rounded-full shadow flex flex-col items-center justify-center text-center w-32 py-2 font-bold leading-[1.1] gap-[0px] text-[13px]",
       },
       size: {
         default: "px-4 py-2 has-[>svg]:px-3",
