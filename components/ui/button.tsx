@@ -19,7 +19,7 @@ const buttonVariants = cva(
         ghost:
           "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
         link: "text-primary underline-offset-4 hover:underline",
-        circleIcon: "flex-col gap-0.5 rounded-full bg-white shadow-lg hover:shadow-xl transition-shadow h-20 w-20 items-center justify-center",
+        circleIcon: "flex-col gap-0.5 rounded-full bg-white shadow-lg hover:shadow-xl transition-shadow h-15 w-15 items-center justify-center",
         customBlue: "h-9 bg-blue-600 text-white hover:bg-blue-700",
         customBlack: "h-9 bg-black text-white hover:bg-gray-900 mt-24 w-32",
         customWhite: "h-9 w-45 bg-white text-black border border-gray-300 hover:bg-gray-100",
@@ -30,8 +30,10 @@ const buttonVariants = cva(
         red: "w-32 py-2 bg-red-400 hover:bg-red-500 text-white rounded-lg shadow text-lg font-medium",
         yellow: "w-32 py-2 bg-yellow-400 hover:bg-yellow-500 text-black rounded-lg shadow text-lg font-medium",
         green: "w-32 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg shadow text-lg font-medium",
+        orange: "bg-orange-400 text-white hover:bg-orange-500",
+        gray: "bg-gray-500 text-white hover:bg-gray-600",
         blue: "w-32 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg shadow text-lg font-medium",
-        greenPillTwoLine: "bg-green-500 hover:bg-green-600 text-white rounded-full shadow flex flex-col items-center justify-center text-center w-32 py-2 font-bold leading-[1.1] gap-[0px] text-[13px]",
+        greenPillTwoLine: "bg-green-500 hover:bg-green-600 text-white rounded-full shadow flex flex-col items-center justify-center text-center w-32 py-2 font-bold leading-[1.1] gap-[0px] text-[10px]",
       },
       size: {
         default: "px-4 py-2 has-[>svg]:px-3",
