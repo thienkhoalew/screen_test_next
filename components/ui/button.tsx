@@ -32,6 +32,8 @@ const buttonVariants = cva(
         green: "w-32 py-2 bg-[#016630] hover:bg-green-700 text-white rounded-lg shadow text-lg font-medium",
         blue: "w-32 py-2 bg-[#5B9BD5] hover:bg-blue-600 text-white rounded-lg shadow text-lg font-medium",
         greenPillTwoLine: "bg-[#7CB342] hover:bg-green-600 text-white rounded-full shadow flex flex-col items-center justify-center text-center w-32 py-2 font-bold leading-[1.1] gap-[0px] text-[13px]",
+        orange: "bg-[#E8924F] hover:bg-[#D6823F] text-white",
+        gray: "bg-[#536675] hover:bg-[#435360] text-white",
       },
       size: {
         default: "px-4 py-2 has-[>svg]:px-3",
@@ -41,7 +43,7 @@ const buttonVariants = cva(
         "icon-sm": "size-8",
         "icon-lg": "size-10",
         "button-back": "p-4 text-[11px]",
-        big: "h-[80px]" ,
+        big: "h-[80px]",
       },
     },
     defaultVariants: {

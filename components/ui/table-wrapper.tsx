@@ -17,9 +17,9 @@ export default function TableWrapper({
             <div className="flex items-center justify-between mb-2 shrink-0">
                 <h2 className="text-lg font-semibold text-gray-800">{title}</h2>
 
-                <div className="flex items-center gap-2">
-                    <Button variant="orange">勤務計画表</Button>
-                    <Button variant="gray">配車計画表</Button>
+                <div className="flex items-center gap-0">
+                    <Button variant="orange" className="rounded-r-none h-9 px-4 text-sm font-bold">日次勤務計画調整</Button>
+                    <Button variant="gray" className="rounded-l-none h-9 px-4 text-sm font-bold">日次配車計画調整</Button>
                 </div>
             </div>
 
