@@ -12,7 +12,7 @@ export function Pagination({
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1)
 
   return (
-    <div className="flex items-center justify-center space-x-2 py-2">
+    <div className="flex items-center justify-center">
 
       <button
         onClick={() => onChange(page - 1)}
@@ -48,7 +48,7 @@ export function Pagination({
           page === totalPages && "opacity-30 cursor-not-allowed"
         )}
       >
-        ›
+      ›
       </button>
     </div>
   )

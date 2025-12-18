@@ -3,8 +3,15 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { JapaneseCalendar } from "@/components/ui/datetime-picker";
+import { useRouter } from "next/navigation";
 
 export default function Header() {
+    const router = useRouter();
+    const handleUpload = () => {
+        router.push("/working/new");
+    }
     return (
         <div className="mt-2 ml-4">
             <div className="flex items-center gap-4 mb-2">
@@ -18,14 +25,23 @@ export default function Header() {
                 <Button variant="ghost" size="icon" className="text-gray-400 hover:text-gray-600 hover:bg-transparent">
                     <ChevronLeft className="h-15 w-15" strokeWidth={1.5} />
                 </Button>
-                <div className="border border-gray-200 rounded px-2 py-1 text-[20px] font-normal min-w-[150px] text-center bg-white text-gray-900 mx-1">
-                    12月01日
-                </div>
+
+                <Popover>
+                    <PopoverTrigger asChild>
+                        <div className="border border-gray-200 rounded px-2 py-1 text-[20px] font-normal min-w-[150px] text-center bg-white text-gray-900 mx-1 cursor-pointer hover:bg-gray-50">
+                            12月01日
+                        </div>
+                    </PopoverTrigger>
+                    <PopoverContent className="p-0 border-none bg-transparent shadow-none" align="center">
+                        <JapaneseCalendar selected={new Date(2025, 11, 1)} />
+                    </PopoverContent>
+                </Popover>
+
                 <Button variant="ghost" size="icon" className="text-gray-400 hover:text-gray-600 hover:bg-transparent">
                     <ChevronRight className="h-15 w-15" strokeWidth={1.5} />
                 </Button>
 
-                <Button variant="blue" className="ml-auto h-10 px-6 rounded-md shadow-sm font-medium ">
+                <Button variant="blue" onClick={handleUpload} className="ml-auto h-10 px-6 rounded-md shadow-sm font-medium ">
                     日次実績反映
                 </Button>
             </div>

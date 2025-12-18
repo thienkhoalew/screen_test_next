@@ -14,8 +14,8 @@ import {
 
 export default function MasterUploadPage() {
   return (
-    <div className="h-full w-full bg-white overflow-y-auto">
-      <div className="w-full py-8 space-y-4">
+    <div className="w-full bg-white overflow-y-auto">
+      <div className="w-full py-2 space-y-4">
 
         {/* Header */}
         <div className="max-w-[1500px] w-full mx-auto px-6 flex items-center justify-between">
@@ -123,8 +123,8 @@ export default function MasterUploadPage() {
         </div>
       </div>
 
-      <div className="w-[80%] mx-auto flex justify-end pt-4 pb-10">
-        <Button className="h-10 bg-black text-white px-8 text-sm hover:bg-gray-800 rounded-md">
+      <div className=" mx-auto flex justify-end pb-4 ">
+        <Button className="h-10 bg-black text-white px-8 text-sm hover:bg-gray-800 rounded-md fixed bottom-12">
           仮取込実行
         </Button>
       </div>

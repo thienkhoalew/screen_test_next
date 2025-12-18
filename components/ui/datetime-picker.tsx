@@ -8,67 +8,60 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 
-// Japanese weekday labels
 const WEEKDAYS = ["日", "月", "火", "水", "木", "金", "土"]
 
-// Check if date is a specific red day (customize this list based on your needs)
 const isRedDay = (date: Date) => {
-  // Specific days to mark as red (休診日 - closed days)
-  // You can customize this list based on your business needs
-  const redDays = [3, 7, 10, 14, 18, 21, 26, 30] // Days of month to mark red
-  
+  const redDays = [3, 7, 10, 14, 18, 21, 26, 30]
+
   return redDays.includes(date.getDate())
 }
 
-function JapaneseCalendar({ 
-  selected, 
-  onSelect, 
-  currentMonth = new Date() 
+export function JapaneseCalendar({
+  selected,
+  onSelect,
+  currentMonth = new Date()
 }: {
   selected?: Date
   onSelect?: (date: Date) => void
   currentMonth?: Date
 }) {
   const [displayMonth, setDisplayMonth] = React.useState(currentMonth)
-  
-  // Get first day of month and calculate calendar grid
+
   const firstDay = new Date(displayMonth.getFullYear(), displayMonth.getMonth(), 1)
   const startDate = new Date(firstDay)
   startDate.setDate(startDate.getDate() - firstDay.getDay())
-  
+
   const days = []
   const current = new Date(startDate)
-  
-  // Generate 42 days (6 weeks)
+
   for (let i = 0; i < 42; i++) {
     days.push(new Date(current))
     current.setDate(current.getDate() + 1)
   }
-  
+
   const goToPreviousMonth = () => {
     setDisplayMonth(new Date(displayMonth.getFullYear(), displayMonth.getMonth() - 1, 1))
   }
-  
+
   const goToNextMonth = () => {
     setDisplayMonth(new Date(displayMonth.getFullYear(), displayMonth.getMonth() + 1, 1))
   }
-  
+
   const isToday = (date: Date) => {
     const today = new Date()
     return date.toDateString() === today.toDateString()
   }
-  
+
   const isSelected = (date: Date) => {
     return selected && date.toDateString() === selected.toDateString()
   }
-  
+
   const isCurrentMonth = (date: Date) => {
     return date.getMonth() === displayMonth.getMonth()
   }
 
   return (
     <div className="w-64 bg-white border border-gray-300 rounded-lg shadow-lg p-3">
-      {/* Header */}
       <div className="flex items-center justify-between mb-3 bg-gray-100 rounded px-2 py-1.5">
         <Button
           variant="ghost"
@@ -78,11 +71,11 @@ function JapaneseCalendar({
         >
           <ChevronLeft className="h-3 w-3" />
         </Button>
-        
+
         <div className="text-xs font-medium">
           一覧に戻る
         </div>
-        
+
         <Button
           variant="ghost"
           size="sm"
@@ -115,7 +108,7 @@ function JapaneseCalendar({
           const isTodayDay = isToday(date)
           const isSelectedDay = isSelected(date)
           const isCurrentMonthDay = isCurrentMonth(date)
-          
+
           return (
             <button
               key={index}

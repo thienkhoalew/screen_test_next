@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useId } from "react";
 import TableWrapper from "@/components/ui/table-wrapper";
 import {
     Table,
@@ -178,9 +178,11 @@ export default function ScheduleTable() {
         });
     };
 
+    const dndContextId = useId();
+
     return (
         <TableWrapper title="" className="h-full">
-            <DndContext modifiers={[restrictToHorizontalAxis]} onDragEnd={handleDragEnd}>
+            <DndContext id={dndContextId} modifiers={[restrictToHorizontalAxis]} onDragEnd={handleDragEnd}>
                 <div className="p-2 border-b flex gap-2 items-center bg-white">
                     <Button variant="secondary" className="h-8 bg-gray-200 hover:bg-gray-300 text-gray-700 border border-gray-300 shadow-sm rounded">分割</Button>
                     <Button variant="secondary" className="h-8 bg-gray-200 hover:bg-gray-300 text-gray-700 border border-gray-300 shadow-sm rounded">圧縮</Button>

@@ -10,7 +10,7 @@ export default function WorkingPage() {
   const totalPages = 1;
 
   return (
-    <div className="w-full p-2 ml-2">
+    <div className="w-full p-2">
       <h2 className="text-2xl font-bold mb-2">勤務表一覧</h2>
 
       <section className="bg-white p-4 rounded-xl shadow border mb-4">
@@ -124,8 +124,8 @@ export default function WorkingPage() {
         </div>
       </section>
 
-      <section className="bg-white p-6 rounded-xl shadow border">
-        <h3 className="text-[15px] font-semibold mb-4">作成中・発表済み勤務計画</h3>
+      <section className="bg-white p-2 rounded-xl shadow border">
+        <h3 className="text-[15px] font-semibold">作成中・発表済み勤務計画</h3>
         <div className="max-h-55 overflow-y-auto">
           <Table className="min-w-full">
             <TableHeader>

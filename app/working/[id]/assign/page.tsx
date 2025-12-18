@@ -18,7 +18,7 @@ export default function AssignPage() {
                 <div className="h-[250px] shrink-0 min-h-0">
                     <DriverListSection className="h-full" />
                 </div>
-                <div className="shrink-0">
+                <div className="shrink-0 mb-2">
                     <FooterActions />
                 </div>
             </main>
