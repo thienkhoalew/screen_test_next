@@ -41,7 +41,18 @@ export default function WorkingDetailPage({
         </span>
       </div>
 
-      <TableWrapper className="flex-1 min-h-0" title="勤務計画表: 2025/12/01~2025/12/31">
+      <TableWrapper className="flex-1 min-h-0" title={
+        <div className="flex items-center gap-2">
+          <span>勤務表期間 : 2025/12/01~2025/12/31</span>
+          <div className="flex items-center gap-1 ml-4 text-xs">
+            <span className="px-2 py-0.5 rounded-full bg-blue-100 text-blue-600 font-medium">公休</span>
+            <span className="px-2 py-0.5 rounded-full bg-green-100 text-green-600 font-medium">希望休</span>
+            <span className="px-2 py-0.5 rounded-full bg-purple-100 text-purple-600 font-medium">有休</span>
+            <span className="px-2 py-0.5 rounded-full bg-red-100 text-red-600 font-medium">乗務不可</span>
+            <span className="px-2 py-0.5 rounded-full bg-orange-100 text-orange-600 font-medium">予備ダイヤ</span>
+          </div>
+        </div>
+      }>
         <DetailsTable />
       </TableWrapper>
 

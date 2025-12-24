@@ -15,11 +15,13 @@ export default function TableWrapper({
     return (
         <div className={cn("w-full flex flex-col", className)}>
             <div className="flex items-center justify-between mb-2 shrink-0">
-                <h2 className="text-lg font-semibold text-gray-800">{title}</h2>
+                <div className="flex items-center gap-4">
+                    <h2 className="text-lg font-semibold text-gray-800">{title}</h2>
+                </div>
 
                 <div className="flex items-center gap-0">
-                    <Button variant="orange">日次勤務計画調整</Button>
-                    <Button variant="gray">日次配車計画調整</Button>
+                    <Button variant="orange">勤務計画表</Button>
+                    <Button variant="gray">配車計画表</Button>
                 </div>
             </div>
 

@@ -1,9 +1,13 @@
 export type DailyStatus = {
-    type: "work" | "holiday" | "paid" | "absence" | "unknown" | "special" | string;
+    type: "work" | "holiday" | "paid" | "absence" | "unknown" | "assistant" | string;
     code?: string;
     value?: string;
     subValue?: string;
     statusText?: string;
+    startTime?: string;
+    endTime?: string;
+    constraintTime?: string;
+    distance?: string;
 } | null;
 
 export type DriverStats = {
@@ -19,6 +23,6 @@ export type Driver = {
     id: string;
     group: string;
     name: string;
-    schedule: Record<number, DailyStatus>;
+    schedule: Record<number, DailyStatus | DailyStatus[]>;
     stats: DriverStats;
 };

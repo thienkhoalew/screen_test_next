@@ -6,6 +6,19 @@ export const MOCK_DRIVERS: Driver[] = [
         group: "Aグループ",
         name: "山田 太郎",
         schedule: {
+            1: { type: "work", code: "A-635", value: "1111" },
+            2: { type: "work", code: "A-635", value: "1111" },
+            3: { type: "work", code: "B-677", value: "2222" },
+            4: { type: "holiday", statusText: "公" },
+            5: { type: "holiday", statusText: "公" },
+            6: { type: "work", code: "C-798", value: "3333" },
+            7: { type: "work", code: "B-635", value: "4444" },
+            8: { type: "work", code: "C-779", value: "5555" },
+            9: { type: "work", code: "C-741", value: "6666" },
+            10: { type: "work", code: "C-775", value: "7777" },
+            11: { type: "holiday", statusText: "公" },
+            12: { type: "holiday", statusText: "公" },
+            13: { type: "work", code: "C-759", value: "8888" },
             14: { type: "holiday", statusText: "公" },
             15: { type: "work", code: "C-759", value: "1234" },
             16: { type: "work", code: "A-635", value: "1234" },
@@ -32,6 +45,19 @@ export const MOCK_DRIVERS: Driver[] = [
         group: "Aグループ",
         name: "佐藤 次郎",
         schedule: {
+            1: { type: "holiday", statusText: "公" },
+            2: { type: "holiday", statusText: "公" },
+            3: { type: "work", code: "B-653", value: "9999" },
+            4: { type: "work", code: "B-635", value: "8888" },
+            5: { type: "work", code: "C-779", value: "6666" },
+            6: { type: "work", code: "C-741", value: "4444" },
+            7: { type: "work", code: "C-775", value: "4444" },
+            8: { type: "holiday", statusText: "公" },
+            9: { type: "holiday", statusText: "公" },
+            10: { type: "work", code: "C-779", value: "8888" },
+            11: { type: "work", code: "B-688", value: "4444" },
+            12: { type: "work", code: "B-647", value: "1111" },
+            13: { type: "work", code: "B-632", value: "3333" },
             14: { type: "work", code: "C-759", value: "6666" },
             15: { type: "work", code: "A-635", value: "5555" },
             16: { type: "unknown", statusText: "不" },
@@ -58,6 +84,19 @@ export const MOCK_DRIVERS: Driver[] = [
         group: "Aグループ",
         name: "鈴木 三郎",
         schedule: {
+            1: { type: "work", code: "C-798", value: "6666" },
+            2: { type: "work", code: "B-635", value: "8888" },
+            3: { type: "work", code: "C-779", value: "6666" },
+            4: { type: "work", code: "C-741", value: "4444" },
+            5: { type: "work", code: "C-775", value: "4444" },
+            6: { type: "holiday", statusText: "公" },
+            7: { type: "holiday", statusText: "公" },
+            8: { type: "work", code: "C-779", value: "8888" },
+            9: { type: "work", code: "B-688", value: "4444" },
+            10: { type: "work", code: "B-647", value: "1111" },
+            11: { type: "work", code: "B-632", value: "3333" },
+            12: { type: "work", code: "B-893", value: "9999" },
+            13: { type: "paid", statusText: "有" },
             14: { type: "work", code: "A-635", value: "5555" },
             15: { type: "work", code: "A-635", value: "8888" },
             16: { type: "work", code: "B-677", value: "2222" },
@@ -84,6 +123,19 @@ export const MOCK_DRIVERS: Driver[] = [
         group: "Aグループ",
         name: "渡辺 七子",
         schedule: {
+            1: { type: "work", code: "B-635", value: "8888" },
+            2: { type: "work", code: "C-779", value: "6666" },
+            3: { type: "work", code: "C-741", value: "4444" },
+            4: { type: "work", code: "C-775", value: "4444" },
+            5: { type: "holiday", statusText: "公" },
+            6: { type: "holiday", statusText: "公" },
+            7: { type: "work", code: "C-779", value: "8888" },
+            8: { type: "paid", statusText: "有" },
+            9: { type: "work", code: "B-647", value: "1111" },
+            10: { type: "work", code: "B-632", value: "3333" },
+            11: { type: "work", code: "B-893", value: "9999" },
+            12: { type: "holiday", statusText: "公" },
+            13: { type: "work", code: "A-635", value: "8888" },
             14: { type: "work", code: "A-635", value: "8888" },
             15: { type: "work", code: "B-677", value: "2222" },
             16: { type: "work", code: "B-653", value: "9999" },
@@ -110,6 +162,19 @@ export const MOCK_DRIVERS: Driver[] = [
         group: "Bグループ",
         name: "田中 四郎",
         schedule: {
+            1: { type: "work", code: "C-798", value: "6666" },
+            2: { type: "work", code: "B-635", value: "8888" },
+            3: { type: "work", code: "B-635", value: "8888" },
+            4: { type: "unknown", statusText: "不" },
+            5: { type: "work", code: "C-741", value: "4444" },
+            6: { type: "work", code: "C-775", value: "4444" },
+            7: { type: "holiday", statusText: "公" },
+            8: { type: "holiday", statusText: "公" },
+            9: { type: "work", code: "C-779", value: "8888" },
+            10: { type: "work", code: "B-688", value: "4444" },
+            11: { type: "work", code: "B-647", value: "1111" },
+            12: { type: "work", code: "B-632", value: "3333" },
+            13: { type: "work", code: "B-893", value: "9999" },
             14: { type: "work", code: "B-677", value: "2222" },
             15: { type: "unknown", statusText: "不" },
             16: { type: "holiday", statusText: "公" },
@@ -136,6 +201,22 @@ export const MOCK_DRIVERS: Driver[] = [
         group: "Bグループ",
         name: "伊藤 五郎 (助勤)",
         schedule: {
+            1: [
+                { type: "work", code: "C-798", value: "6666" },
+                { type: "work", code: "C-798", value: "6666" },
+            ],
+            2: { type: "work", code: "B-635", value: "8888" },
+            3: { type: "work", code: "B-635", value: "8888" },
+            4: { type: "unknown", statusText: "不" },
+            5: { type: "work", code: "C-741", value: "4444" },
+            6: { type: "work", code: "C-775", value: "4444" },
+            7: { type: "holiday", statusText: "公" },
+            8: { type: "holiday", statusText: "公" },
+            9: { type: "work", code: "C-779", value: "8888" },
+            10: { type: "work", code: "B-688", value: "4444" },
+            11: { type: "work", code: "B-647", value: "1111" },
+            12: { type: "work", code: "B-632", value: "3333" },
+            13: { type: "work", code: "B-893", value: "9999" },
             14: { type: "work", code: "B-653", value: "9999" },
             15: { type: "holiday", statusText: "公" },
             16: { type: "holiday", statusText: "公" },
@@ -162,29 +243,77 @@ export const MOCK_DRIVERS: Driver[] = [
         group: "ー",
         name: "中村 八郎 (助勤)",
         schedule: {
-            19: { type: "special", statusText: "", value: "" },
-            31: { type: "special", statusText: "", value: "" },
+            1: [
+                { type: "assistant", code: "", value: "" },
+                { type: "assistant", code: "", value: "" }
+            ],
+            19: [
+                { type: "assistant", code: "", value: "" },
+                { type: "assistant", code: "", value: "" }
+            ],
+            23: [
+                { type: "assistant", code: "", value: "" },
+                { type: "assistant", code: "", value: "" }
+            ],
+            24: [
+                { type: "assistant", code: "", value: "" },
+                { type: "assistant", code: "", value: "" }
+            ],
+            25: [
+                { type: "assistant", code: "", value: "" },
+                { type: "assistant", code: "C-301", value: "7777", startTime: "10:00", endTime: "14:00", constraintTime: "4:00", distance: "30km" }
+            ],
+            27: [
+                { type: "assistant", code: "A-101", value: "1111", startTime: "08:00", endTime: "12:00", constraintTime: "4:00", distance: "20km" },
+                { type: "assistant", code: "", value: "" }
+            ],
+            29: [
+                { type: "assistant", code: "A-651", value: "1234", startTime: "07:00", endTime: "17:00", constraintTime: "10:00", distance: "80km" },
+                { type: "assistant", code: "B-650", value: "5678", startTime: "14:00", endTime: "22:00", constraintTime: "8:00", distance: "60km" }
+            ],
+            31: [
+                { type: "assistant", code: "", value: "" },
+                { type: "assistant", code: "", value: "" }
+            ],
         },
         stats: { workDays: 20, holidayDays: 8, constraintTime: 200.1, handleTime: 134.7, heavyWork: 3, subWork: 3 },
     }
 ];
 
 export const FOOTER_DATA = {
-    unassignedWorkCount: { 14: 0, 15: 1, 16: 2, 17: 2, 18: 1, 19: 2, 20: 2, 21: 1, 22: 0, 23: 0, 24: 1, 25: 0, 26: 2, 27: 1, 28: 0, 29: 1, 30: 0, 31: 1 },
+    unassignedWorkCount: { 1: 0, 2: 0, 3: 1, 4: 1, 5: 0, 6: 2, 7: 1, 8: 0, 9: 1, 10: 1, 11: 1, 12: 0, 13: 2, 14: 0, 15: 1, 16: 2, 17: 2, 18: 1, 19: 2, 20: 2, 21: 1, 22: 0, 23: 3, 24: 3, 25: 1, 26: 2, 27: 1, 28: 0, 29: 1, 30: 0, 31: 1 },
     unassignedWorkNumber: {
-        15: ["C-744"],
-        16: ["B-638", "B-631"],
-        17: ["C-753", "B-670"],
-        18: ["A-656"],
-        19: ["C-753", "B-633"],
-        20: ["A-651", "B-650"],
-        21: ["A-687"],
-        24: ["B-676"],
-        26: ["B-673", "B-676"],
-        27: ["B-673"],
-        29: ["C-786"],
-        31: ["B-650"]
+        3: [{ type: "work", code: "C-744", value: "1234", startTime: "08:00", endTime: "20:00", constraintTime: "12:00", distance: "45km" }],
+        6: [{ type: "work", code: "B-638", value: "1234", startTime: "07:30", endTime: "21:30", constraintTime: "14:00", distance: "30km" }, { type: "work", code: "B-631", value: "1234", startTime: "07:30", endTime: "21:30", constraintTime: "14:00", distance: "30km" }],
+        7: [{ type: "work", code: "C-753", value: "1234", startTime: "07:00", endTime: "19:00", constraintTime: "12:00", distance: "50km" }, { type: "work", code: "B-670", value: "1234", startTime: "07:30", endTime: "21:30", constraintTime: "14:00", distance: "30km" }],
+        10: [{ type: "work", code: "A-656", value: "1234", startTime: "06:00", endTime: "18:00", constraintTime: "12:00", distance: "60km" }],
+        13: [{ type: "work", code: "C-753", value: "1234", startTime: "07:00", endTime: "19:00", constraintTime: "12:00", distance: "50km" }, { type: "work", code: "B-633", value: "1234", startTime: "07:30", endTime: "21:30", constraintTime: "14:00", distance: "30km" }],
+        15: [{ type: "work", code: "C-744", value: "1234", startTime: "08:00", endTime: "20:00", constraintTime: "12:00", distance: "45km" }],
+        16: [{ type: "work", code: "B-638", value: "1234", startTime: "07:30", endTime: "21:30", constraintTime: "14:00", distance: "30km" }, { type: "work", code: "B-631", value: "1234", startTime: "07:30", endTime: "21:30", constraintTime: "14:00", distance: "30km" }],
+        17: [{ type: "work", code: "C-753", value: "1234", startTime: "07:00", endTime: "19:00", constraintTime: "12:00", distance: "50km" }, { type: "work", code: "B-670", value: "1234", startTime: "07:30", endTime: "21:30", constraintTime: "14:00", distance: "30km" }],
+        18: [{ type: "work", code: "A-656", value: "1234", startTime: "06:00", endTime: "18:00", constraintTime: "12:00", distance: "60km" }],
+        19: [{ type: "work", code: "C-753", value: "1234", startTime: "07:00", endTime: "19:00", constraintTime: "12:00", distance: "50km" }, { type: "work", code: "B-633", value: "1234", startTime: "07:30", endTime: "21:30", constraintTime: "14:00", distance: "30km" }],
+        20: [{ type: "work", code: "A-651", value: "1234", startTime: "06:00", endTime: "18:00", constraintTime: "12:00", distance: "60km" }, { type: "work", code: "B-650", value: "1234", startTime: "07:30", endTime: "21:30", constraintTime: "14:00", distance: "30km" }],
+        21: [{ type: "work", code: "A-687", value: "1234", startTime: "06:00", endTime: "18:00", constraintTime: "12:00", distance: "60km" }],
+        23: [
+            { type: "work", code: "A-101", value: "1111", startTime: "08:00", endTime: "12:00", constraintTime: "4:00", distance: "20km" },
+            { type: "work", code: "A-102", value: "2222", startTime: "13:00", endTime: "17:00", constraintTime: "4:00", distance: "20km" },
+            { type: "work", code: "A-103", value: "3333", startTime: "18:00", endTime: "22:00", constraintTime: "4:00", distance: "20km" }
+        ],
+        24: [
+            { type: "work", code: "B-201", value: "4444", startTime: "09:00", endTime: "13:00", constraintTime: "4:00", distance: "25km" },
+            { type: "work", code: "B-202", value: "5555", startTime: "14:00", endTime: "18:00", constraintTime: "4:00", distance: "25km" },
+            { type: "work", code: "B-203", value: "6666", startTime: "19:00", endTime: "23:00", constraintTime: "4:00", distance: "25km" }
+        ],
+        25: [
+            { type: "work", code: "C-301", value: "7777", startTime: "10:00", endTime: "14:00", constraintTime: "4:00", distance: "30km" }
+        ],
+
+        26: [{ type: "work", code: "B-673", value: "1234", startTime: "07:30", endTime: "21:30", constraintTime: "14:00", distance: "30km" }, { type: "work", code: "B-676", value: "1234", startTime: "07:30", endTime: "21:30", constraintTime: "14:00", distance: "30km" }],
+        27: [{ type: "work", code: "B-673", value: "1234", startTime: "07:30", endTime: "21:30", constraintTime: "14:00", distance: "30km" }],
+        29: [{ type: "work", code: "C-786", value: "1234", startTime: "08:00", endTime: "20:00", constraintTime: "12:00", distance: "45km" }],
+        31: [{ type: "work", code: "B-650", value: "1234", startTime: "07:30", endTime: "21:30", constraintTime: "14:00", distance: "30km" }]
     },
-    shortage: { 15: 1, 31: 1 },
-    scanExpectation: { 14: 0, 15: 1, 16: 1, 17: 3, 18: 1, 19: 3, 20: 2, 21: 2, 22: 2, 23: 3, 24: 1, 25: 0 }
+    shortage: { 3: 1, 6: 1, 15: 1, 31: 1 },
+    scanExpectation: { 1: 0, 2: 1, 3: 1, 4: 0, 5: 2, 6: 1, 7: 3, 13: 1, 14: 0, 15: 1, 16: 1, 17: 3, 18: 1, 19: 3, 20: 2, 21: 2, 22: 2, 23: 3, 24: 1, 25: 0 }
 };
