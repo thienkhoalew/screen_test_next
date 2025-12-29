@@ -18,12 +18,12 @@ export const HistoryPanel = ({ logs, onReset }: HistoryPanelProps) => {
                 </button>
                 <span className="font-bold text-gray-800 text-sm">保存履歴</span>
             </div>
-            <div className="flex-1 overflow-y-auto space-y-2 p-1 max-h-[140px]">
+            <div className="flex-1 overflow-y-auto space-y-2 p-1">
                 {logs.length === 0 && <div className="text-gray-400 text-center text-xs py-2">履歴なし</div>}
                 {logs.map((l, i) => (
-                    <div key={i} className="bg-[#FFF9F5] border border-[#F5E6D8] rounded p-2 text-[11px] text-gray-600 flex flex-row items-baseline gap-2 shadow-sm">
-                        <span className="text-gray-400 text-[10px] whitespace-nowrap min-w-fit">{l.timestamp}</span>
-                        <span className="font-medium text-gray-400">{l.message}</span>
+                    <div key={i} className="bg-[#FFF9F5] border border-[#F5E6D8] rounded px-3 py-2 text-[11px] text-gray-500 flex flex-row items-start gap-3 shadow-sm">
+                        <span className="text-gray-400 text-[10px] whitespace-nowrap shrink-0">{l.timestamp}</span>
+                        <span className="text-gray-600 leading-relaxed flex-1">{l.message}</span>
                     </div>
                 ))}
             </div>

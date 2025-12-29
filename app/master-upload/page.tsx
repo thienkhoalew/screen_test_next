@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { UploadTargetTable } from "./upload-target-table";
 import { CurrentMasterTable } from "./current-master-table";
-import { FileUploadBox } from "@/components/custom/file-upload-box";
+import { FileUploadBox } from "@/components/features/upload/FileUploadBox";
 
 export default function MasterUploadPage() {
   const handleFileSelect = (file: File | null) => {
@@ -20,7 +20,7 @@ export default function MasterUploadPage() {
           <FileUploadBox onFileSelect={handleFileSelect} />
         </div>
 
-        <Button variant="customBlack" className="w-full md:w-auto">
+        <Button className="w-full md:w-auto h-9 bg-black text-white hover:bg-gray-900 w-32">
           取込実行
         </Button>
       </div>

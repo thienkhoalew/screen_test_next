@@ -245,5 +245,6 @@ export const useScheduleBoard = <T extends Record<number, DailyStatus[]>>({
         handleStatusChange,
         handleTaskAssignment,
         handleReset,
+        addHistory, // Expose addHistory for custom logging
     };
 };

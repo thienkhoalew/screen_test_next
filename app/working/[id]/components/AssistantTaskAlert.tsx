@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
-import { TaskCard } from "@/components/custom/task-card";
+import { TaskCard } from "@/components/shared/cards";
 
 export const AssistantTaskAlert = ({ code, value }: { code: string; value: string }) => {
     const [open, setOpen] = useState(false);

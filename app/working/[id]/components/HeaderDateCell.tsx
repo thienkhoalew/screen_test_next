@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { createHeaderDateCell } from "@/components/shared/HeaderDateCellFactory";
+import { createHeaderDateCell } from "@/components/shared/table";
 
 // Create HeaderDateCell with details table configuration  
 // Details table shows separate colors for Saturday (blue) and Sunday (red)

@@ -1,15 +1,15 @@
 "use client";
 
 import { FOOTER_DATA } from "@/data/confirm";
-import TableWrapper from "@/components/ui/table-wrapper";
-import { MonthlyScheduleTable } from "@/components/custom/monthly-schedule-table";
+import TableWrapper from "@/components/features/schedule/TableWrapper";
+import { MonthlyScheduleTable } from "@/components/features/schedule/MonthlyScheduleTable";
 import { useConfirmBoard } from "./hooks/useConfirmBoard";
-import { StatusCell } from "@/components/shared/StatusCell";
-import { createHeaderDateCell } from "@/components/shared/HeaderDateCellFactory";
+import { StatusCell } from "@/components/shared/table";
+import { createHeaderDateCell } from "@/components/shared/table";
+import VehicleConfirmTable from "./vehicleConfirmTable";
 
-// Create HeaderDateCell with confirm table configuration
 const HeaderDateCell = createHeaderDateCell({
-    startDayOfWeek: 1, // December 2025 starts on Monday
+    startDayOfWeek: 1,
     weekdayLabel: "平日",
     weekendLabel: "休日",
     highlightWeekend: true,
@@ -17,7 +17,7 @@ const HeaderDateCell = createHeaderDateCell({
     useSeparateWeekendColors: false,
 });
 
-export default function ConfirmTable() {
+const DriverConfirmTable = () => {
     const {
         drivers,
         unassignedWorks,
@@ -26,6 +26,26 @@ export default function ConfirmTable() {
         handleTaskAssignment,
     } = useConfirmBoard();
 
+    return (
+        <MonthlyScheduleTable
+            drivers={drivers}
+            unassignedWorks={unassignedWorks}
+            footerData={FOOTER_DATA}
+            numberOfDays={31}
+            HeaderDateCell={HeaderDateCell}
+            StatusCell={StatusCell}
+            onDragEnd={handleDragEnd}
+            onStatusChange={handleStatusChange}
+            onTaskAssignment={handleTaskAssignment}
+            showDragDrop={true}
+            showHistoryPanel={false}
+            showUnassignedWorks={true}
+            showFooterRows={true}
+        />
+    );
+};
+
+export default function ConfirmTable() {
     return (
         <TableWrapper title={
             <div className="flex items-center gap-3">
@@ -36,21 +56,7 @@ export default function ConfirmTable() {
                 </div>
             </div>
         }>
-            <MonthlyScheduleTable
-                drivers={drivers}
-                unassignedWorks={unassignedWorks}
-                footerData={FOOTER_DATA}
-                numberOfDays={31}
-                HeaderDateCell={HeaderDateCell}
-                StatusCell={StatusCell}
-                onDragEnd={handleDragEnd}
-                onStatusChange={handleStatusChange}
-                onTaskAssignment={handleTaskAssignment}
-                showDragDrop={true}
-                showHistoryPanel={false}
-                showUnassignedWorks={true}
-                showFooterRows={true}
-            />
+            {(viewMode) => viewMode === "work-schedule" ? <DriverConfirmTable /> : <VehicleConfirmTable />}
         </TableWrapper>
     );
 }

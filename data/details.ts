@@ -161,6 +161,7 @@ export const MOCK_DRIVERS: Driver[] = [
         id: "5",
         group: "Bグループ",
         name: "田中 四郎",
+        vehicle: "A-635",
         schedule: {
             1: { type: "work", code: "C-798", value: "6666" },
             2: { type: "work", code: "B-635", value: "8888" },

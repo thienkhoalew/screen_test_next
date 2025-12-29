@@ -1,9 +1,10 @@
 "use client";
 
-import { use } from "react";
+import { use, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import TableWrapper from "@/components/ui/table-wrapper";
-import DetailsTable from "./detailsTable";
+import TableWrapper from "@/components/features/schedule/TableWrapper";
+import DetailsTable, { DetailsTableRef } from "./detailsTable";
+import VehicleTable from "./vehicleTable";
 
 export default function WorkingDetailPage({
   params,
@@ -11,6 +12,27 @@ export default function WorkingDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = use(params);
+  const detailsTableRef = useRef<DetailsTableRef>(null);
+
+  const handleSubmit = () => {
+    if (detailsTableRef.current) {
+      const scheduleData = detailsTableRef.current.getScheduleData();
+
+      console.log("=== 作成実行 - Schedule Data ===");
+      console.log("Drivers:", scheduleData.drivers);
+      console.log("Unassigned Works:", scheduleData.unassignedWorks);
+
+      scheduleData.drivers.forEach((driver, index) => {
+        console.log(`\nDriver ${index + 1}:`, {
+          id: driver.id,
+          name: driver.name,
+          schedule: driver.schedule
+        });
+      });
+
+      console.log("\n=== End Schedule Data ===");
+    }
+  };
 
   return (
     <div className="w-full h-full p-2 flex flex-col overflow-x-auto overflow-y-hidden min-w-[800px]">
@@ -53,14 +75,15 @@ export default function WorkingDetailPage({
           </div>
         </div>
       }>
-        <DetailsTable />
+        {(viewMode) => viewMode === "work-schedule" ? <DetailsTable ref={detailsTableRef} /> : <VehicleTable />}
       </TableWrapper>
 
       <div className="w-full flex justify-end mt-2 z-50">
-        <Button>作成実行</Button>
+        <Button onClick={handleSubmit}>作成実行</Button>
       </div>
 
     </div>
 
   );
 }
+

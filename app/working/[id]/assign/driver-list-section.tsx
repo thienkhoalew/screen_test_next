@@ -1,8 +1,10 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
-import { RotateCcw } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Input } from "@/components/ui/input";
+import { Card } from "@/components/ui/card";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { HistoryPanel } from "@/app/working/[id]/components/HistoryPanel";
 
 const driverCategories = [
     {
@@ -37,61 +39,50 @@ const driverCategories = [
     }
 ];
 
-const historyData = Array.from({ length: 15 }, (_, i) => ({
-    version: `バージョン${10 - i}`,
-    date: "2025/11/27 15:02:27"
-}));
+interface DriverListSectionProps {
+    className?: string;
+    historyLogs: { timestamp: string; message: string }[];
+    onReset: () => void;
+}
 
-export default function DriverListSection({ className }: { className?: string }) {
+export default function DriverListSection({ className, historyLogs, onReset }: DriverListSectionProps) {
     return (
-        <div className={cn("flex gap-4 w-full min-w-[1200px]", className)}>
-            <div className="flex-1 bg-white rounded-lg shadow-sm border border-gray-200 p-4 flex flex-col min-h-0">
+        <div className={cn("flex gap-1 w-full", className)}>
+            <div className="flex-1 bg-white rounded-lg shadow-sm border border-gray-200 p-2 flex flex-col min-h-0">
                 <div className="mb-2 shrink-0">
                     <h3 className="font-bold text-lg text-gray-800 mb-3">割付可能運転手一覧</h3>
                     <div className="flex flex-col gap-1">
                         <label className="text-xs font-bold text-gray-700">仕業ID</label>
-                        <input
+                        <Input
                             type="text"
                             placeholder="仕業を選択"
-                            className="border border-gray-300 rounded px-3 py-1.5 text-sm w-[200px] focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-400"
+                            className="h-8 text-sm w-[200px]"
                         />
                     </div>
                 </div>
 
-                <div className="flex-1 grid grid-cols-6 gap-3 min-h-0 overflow-hidden">
+                <div className="flex-1 grid grid-cols-6 gap-2 min-h-0 overflow-hidden">
                     {driverCategories.map((cat, index) => (
-                        <div key={index} className="flex flex-col h-full border border-gray-200 rounded overflow-hidden">
-                            <div className={cn("py-2 text-center text-xs font-bold text-gray-700 border-b border-gray-200", cat.headerColor)}>
+                        <Card key={index} className="flex flex-col h-full overflow-hidden rounded-lg border-gray-200 p-0 gap-0">
+                            <div className={cn("py-2 px-3 text-center text-sm font-normal text-gray-700", cat.headerColor)}>
                                 {cat.title}
                             </div>
-                            <div className="flex-1 overflow-y-auto bg-white p-2 space-y-2">
-                                {cat.drivers.map((driver, dIndex) => (
-                                    <div key={dIndex} className="text-xs text-center text-gray-700 py-1">
-                                        {driver}
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
+                            <ScrollArea className="flex-1 h-0 bg-white">
+                                <div className="space-y-1">
+                                    {cat.drivers.map((driver, dIndex) => (
+                                        <div key={dIndex} className="text-sm text-center text-gray-600 py-1">
+                                            {driver}
+                                        </div>
+                                    ))}
+                                </div>
+                            </ScrollArea>
+                        </Card>
                     ))}
                 </div>
             </div>
 
-            <div className="w-[320px] bg-white rounded-lg shadow-sm border border-gray-200 p-4 flex flex-col">
-                <div className="flex items-center gap-2 mb-4 pb-2 border-b border-gray-100">
-                    <RotateCcw className="w-4 h-4 text-gray-600" />
-                    <h3 className="font-bold text-lg text-gray-800">保存履歴</h3>
-                </div>
-
-                <div className="flex-1 overflow-y-auto pr-2 space-y-3">
-                    {historyData.map((item, index) => (
-                        <div key={index} className="bg-[#FFF9F2] border border-[#F5E6D3] rounded p-2 flex items-center justify-between">
-                            <Badge className="bg-[#1F2937] hover:bg-[#111827] text-white text-[10px] px-2 py-0.5 rounded-sm h-6">
-                                {item.version}
-                            </Badge>
-                            <span className="text-xs text-gray-500 font-medium">{item.date}</span>
-                        </div>
-                    ))}
-                </div>
+            <div className="w-[380px] shrink-0">
+                <HistoryPanel logs={historyLogs} onReset={onReset} />
             </div>
         </div>
     );

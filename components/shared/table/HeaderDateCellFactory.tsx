@@ -2,16 +2,16 @@ import { cn } from "@/lib/utils";
 import { getWeekday, isSaturday, isSunday, isWeekend } from "@/lib/weekday-utils";
 
 export interface HeaderDateCellConfig {
-    startDayOfWeek?: number; // 0=Sunday, 1=Monday, etc. Default: 1 (Monday)
-    saturdayLabel?: string; // Label for Saturday, default: "学休"
-    sundayLabel?: string; // Label for Sunday, default: "学休"
-    weekdayLabel?: string; // Label for weekday, default: "平日"
-    weekendLabel?: string; // Label for weekend, default: "休日"
-    highlightWeekend?: boolean; // Highlight weekend with color, default: true
-    saturdayColor?: string; // Color for Saturday, default: "text-blue-500 bg-blue-50"
-    sundayColor?: string; // Color for Sunday, default: "text-red-500 bg-red-50"
-    weekendColor?: string; // Color for weekend (if not using separate colors), default: "text-blue-500 bg-blue-50"
-    useSeparateWeekendColors?: boolean; // Use different colors for Sat and Sun, default: false
+    startDayOfWeek?: number;
+    saturdayLabel?: string;
+    sundayLabel?: string;
+    weekdayLabel?: string;
+    weekendLabel?: string;
+    highlightWeekend?: boolean;
+    saturdayColor?: string;
+    sundayColor?: string;
+    weekendColor?: string;
+    useSeparateWeekendColors?: boolean;
 }
 
 export const createHeaderDateCell = (config: HeaderDateCellConfig = {}) => {
@@ -34,7 +34,6 @@ export const createHeaderDateCell = (config: HeaderDateCellConfig = {}) => {
         const isSun = isSunday(weekday);
         const isWeekendDay = isWeekend(weekday);
 
-        // Determine color classes
         let colorClass = "";
         if (highlightWeekend && isWeekendDay) {
             if (useSeparateWeekendColors) {
@@ -44,7 +43,6 @@ export const createHeaderDateCell = (config: HeaderDateCellConfig = {}) => {
             }
         }
 
-        // Determine label
         let label = "";
         if (isWeekendDay) {
             if (useSeparateWeekendColors) {

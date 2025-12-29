@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useId } from "react";
-import TableWrapper from "@/components/ui/table-wrapper";
+import TableWrapper from "@/components/features/schedule/TableWrapper";
 import {
     Table,
     TableBody,
@@ -52,7 +52,6 @@ function DraggableBar({ id, bar, totalHours, startHour }: DraggableBarProps) {
     );
 }
 
-// Sample Data Initial State
 const initialScheduleData = [
     {
         group: "Aグループ",

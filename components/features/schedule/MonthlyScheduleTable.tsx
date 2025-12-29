@@ -15,8 +15,8 @@ import {
     TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
-import { Draggable } from "@/components/custom/dnd-wrapper";
-import { TaskCard } from "@/components/custom/task-card";
+import { Draggable } from "@/components/shared/dnd";
+import { TaskCard } from "@/components/shared/cards";
 import { FOOTER_DATA } from "@/data/details";
 import { Driver, DailyStatus } from "@/types";
 import { ComponentType } from "react";
@@ -37,9 +37,9 @@ export interface MonthlyScheduleTableProps {
     showHistoryPanel?: boolean;
     showUnassignedWorks?: boolean;
     showFooterRows?: boolean;
-    showContextMenu?: boolean; // Show context menu in StatusCell
-    showPopover?: boolean; // Show popover for task assignment in StatusCell
-    AssistantTaskAlert?: ComponentType<{ code: string; value: string }>; // Optional assistant alert component
+    showContextMenu?: boolean;
+    showPopover?: boolean;
+    AssistantTaskAlert?: ComponentType<{ code: string; value: string }>;
     footerData?: {
         unassignedWorkCount?: Record<number, number | string>;
         shortage?: Record<number, number>;

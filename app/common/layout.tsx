@@ -21,7 +21,7 @@ export default function CommonLayout(
           </div>
 
           <Button
-            variant="circleIcon"
+            className="flex-col gap-0.5 rounded-full bg-white shadow-lg hover:shadow-xl transition-shadow h-15 w-15 items-center justify-center text-black"
             size="button-back"
             onClick={() => router.back()}
           >

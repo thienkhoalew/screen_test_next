@@ -1,6 +1,6 @@
 import { DailyStatus } from "@/types";
-import { TaskCard } from "@/components/custom/task-card";
-import { Draggable, Droppable } from "@/components/custom/dnd-wrapper";
+import { TaskCard } from "@/components/shared/cards/TaskCard";
+import { Draggable, Droppable } from "@/components/shared/dnd/DndWrapper";
 import {
     Popover,
     PopoverContent,
