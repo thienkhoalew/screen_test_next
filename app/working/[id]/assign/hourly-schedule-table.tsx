@@ -10,204 +10,48 @@ import {
     TableHead,
     TableRow,
     TableCell,
+    Table,
 } from "@/components/ui/table";
-
-// Types
-export interface TimeSlot {
-    id: string;
-    groupName: string;
-    taskId: string;
-    driverName: string;
-    startTime: string;
-    endTime: string;
-    destinationTime: string;
-    returnTime: string;
-    startHour: number;
-    duration: number;
-    status: "assigned" | "unassigned" | "completed";
-    taskType?: "actual" | "delivery" | "charging"; // 実車 | 回送 | 充電
-}
+import { DailyTask, Driver, Vehicle } from "./mockData";
 
 interface HourlyScheduleTableProps {
     className?: string;
-    onTimeSlotChange?: (slot: TimeSlot, oldStartTime: string, newStartTime: string, newEndTime: string) => void;
+    tasks: DailyTask[];
+    drivers: Driver[];
+    vehicles: Vehicle[];
+    onTimeSlotChange?: (task: DailyTask, oldStartTime: string, newStartTime: string, newEndTime: string) => void;
+    onDriverClick?: (task: DailyTask) => void;
 }
 
 export interface HourlyScheduleTableRef {
     getScheduleData: () => {
-        timeSlots: TimeSlot[];
+        tasks: DailyTask[];
     };
 }
 
-// Mock data
-const initialTimeSlots: TimeSlot[] = [
-    {
-        id: "1",
-        groupName: "Aグループ",
-        taskId: "A-261",
-        driverName: "山口未来",
-        startTime: "12:00",
-        endTime: "21:00",
-        destinationTime: "15:00",
-        returnTime: "12:30",
-        startHour: 12,
-        duration: 9,
-        status: "assigned",
-        taskType: "actual",
-    },
-    {
-        id: "2",
-        groupName: "Aグループ",
-        taskId: "A-261",
-        driverName: "田中太郎",
-        startTime: "06:00",
-        endTime: "10:00",
-        destinationTime: "17:00",
-        returnTime: "14:00",
-        startHour: 6,
-        duration: 4,
-        status: "assigned",
-        taskType: "actual",
-    },
-    {
-        id: "3",
-        groupName: "Bグループ",
-        taskId: "B-102",
-        driverName: "木村太郎",
-        startTime: "11:00",
-        endTime: "23:00",
-        destinationTime: "20:00",
-        returnTime: "10:30",
-        startHour: 11,
-        duration: 12,
-        status: "assigned",
-        taskType: "actual",
-    },
-    {
-        id: "4",
-        groupName: "Bグループ",
-        taskId: "B-102",
-        driverName: "木田太郎",
-        startTime: "運行1",
-        endTime: "23:00",
-        destinationTime: "11:00",
-        returnTime: "10:40",
-        startHour: 8,
-        duration: 3,
-        status: "unassigned",
-        taskType: "delivery",
-    },
-    {
-        id: "5",
-        groupName: "Cグループ",
-        taskId: "C-301",
-        driverName: "松星一郎",
-        startTime: "00:00",
-        endTime: "14:00",
-        destinationTime: "14:00",
-        returnTime: "11:30",
-        startHour: 0,
-        duration: 14,
-        status: "assigned",
-        taskType: "actual",
-    },
-    {
-        id: "6",
-        groupName: "Cグループ",
-        taskId: "C-302",
-        driverName: "佐藤次郎",
-        startTime: "08:00",
-        endTime: "20:00",
-        destinationTime: "11:00",
-        returnTime: "09:30",
-        startHour: 8,
-        duration: 12,
-        status: "assigned",
-        taskType: "charging",
-    },
-    {
-        id: "7",
-        groupName: "Dグループ",
-        taskId: "D-401",
-        driverName: "田中正志",
-        startTime: "10:00",
-        endTime: "00:00",
-        destinationTime: "14:00",
-        returnTime: "12:00",
-        startHour: 10,
-        duration: 14,
-        status: "assigned",
-        taskType: "actual",
-    },
-    {
-        id: "8",
-        groupName: "Dグループ",
-        taskId: "D-402",
-        driverName: "東根定志",
-        startTime: "運行1",
-        endTime: "24:00",
-        destinationTime: "14:00",
-        returnTime: "12:00",
-        startHour: 3,
-        duration: 7,
-        status: "unassigned",
-        taskType: "delivery",
-    },
-];
-
 const HOURS = Array.from({ length: 24 }, (_, i) => i);
+const HOUR_WIDTH = 36;
+const MINUTES_PER_SLOT = 20;
 
 function hourToTimeString(hour: number, minute: number = 0): string {
     const h = hour % 24;
     return `${String(h).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
 }
 
-function parseTimeString(timeStr: string): { hour: number; minute: number } | null {
-    if (!timeStr.match(/^\d{1,2}:\d{2}$/)) {
-        return null;
-    }
-    const [hourStr, minuteStr] = timeStr.split(':');
-    return {
-        hour: parseInt(hourStr, 10),
-        minute: parseInt(minuteStr, 10)
-    };
-}
+function calculateEndTime(startHour: number, startMinute: number, durationHours: number): string {
+    const totalStartMinutes = startHour * 60 + startMinute;
+    const durationMinutes = Math.round(durationHours * 60);
+    const totalEndMinutes = totalStartMinutes + durationMinutes;
 
-function calculateEndTime(startHour: number, duration: number): string {
-    const endHour = (startHour + duration) % 24;
-    return hourToTimeString(endHour);
-}
+    const endHour = Math.floor(totalEndMinutes / 60) % 24;
+    const endMinute = totalEndMinutes % 60;
 
-function initializeTimeSlot(slot: TimeSlot): TimeSlot {
-    const parsedStart = parseTimeString(slot.startTime);
-
-    if (!parsedStart) {
-        return slot;
-    }
-
-    const parsedEnd = parseTimeString(slot.endTime);
-    if (!parsedEnd) {
-        return { ...slot, startHour: parsedStart.hour };
-    }
-
-    let duration = parsedEnd.hour - parsedStart.hour;
-    if (duration < 0) {
-        duration += 24;
-    }
-
-    return {
-        ...slot,
-        startHour: parsedStart.hour,
-        duration: duration
-    };
+    return `${String(endHour).padStart(2, '0')}:${String(endMinute).padStart(2, '0')}`;
 }
 
 const HourlyScheduleTable = forwardRef<HourlyScheduleTableRef, HourlyScheduleTableProps>(
-    ({ className, onTimeSlotChange }, ref) => {
-        const [timeSlots, setTimeSlots] = useState<TimeSlot[]>(
-            initialTimeSlots.map(slot => initializeTimeSlot(slot))
-        );
-        const [draggedSlot, setDraggedSlot] = useState<TimeSlot | null>(null);
+    ({ className, tasks, drivers, vehicles, onTimeSlotChange, onDriverClick }, ref) => {
+        const [draggedTask, setDraggedTask] = useState<DailyTask | null>(null);
         const [dragOffset, setDragOffset] = useState(0);
         const scrollContainerRef = useRef<HTMLDivElement>(null);
         const fixedBodyRef = useRef<HTMLDivElement>(null);
@@ -215,7 +59,7 @@ const HourlyScheduleTable = forwardRef<HourlyScheduleTableRef, HourlyScheduleTab
 
         useImperativeHandle(ref, () => ({
             getScheduleData: () => ({
-                timeSlots
+                tasks
             })
         }));
 
@@ -225,14 +69,27 @@ const HourlyScheduleTable = forwardRef<HourlyScheduleTableRef, HourlyScheduleTab
             }
         };
 
+        const handleHeaderScroll = () => {
+            if (scrollContainerRef.current && scrollableBodyRef.current) {
+                if (scrollableBodyRef.current.scrollLeft !== scrollContainerRef.current.scrollLeft) {
+                    scrollableBodyRef.current.scrollLeft = scrollContainerRef.current.scrollLeft;
+                }
+            }
+        };
+
         const handleScrollableScroll = () => {
             if (fixedBodyRef.current && scrollableBodyRef.current) {
                 fixedBodyRef.current.scrollTop = scrollableBodyRef.current.scrollTop;
             }
+            if (scrollContainerRef.current && scrollableBodyRef.current) {
+                if (scrollContainerRef.current.scrollLeft !== scrollableBodyRef.current.scrollLeft) {
+                    scrollContainerRef.current.scrollLeft = scrollableBodyRef.current.scrollLeft;
+                }
+            }
         };
 
-        const handleDragStart = (e: React.DragEvent<HTMLDivElement>, slot: TimeSlot) => {
-            setDraggedSlot(slot);
+        const handleDragStart = (e: React.DragEvent<HTMLDivElement>, task: DailyTask) => {
+            setDraggedTask(task);
             const rect = e.currentTarget.getBoundingClientRect();
             setDragOffset(e.clientX - rect.left);
             e.currentTarget.style.opacity = "0.5";
@@ -240,52 +97,92 @@ const HourlyScheduleTable = forwardRef<HourlyScheduleTableRef, HourlyScheduleTab
 
         const handleDragEnd = (e: React.DragEvent<HTMLDivElement>) => {
             e.currentTarget.style.opacity = "1";
-            setDraggedSlot(null);
+            setDraggedTask(null);
         };
 
         const handleDrop = (e: React.DragEvent<HTMLDivElement>, rowIndex: number) => {
             e.preventDefault();
-            if (!draggedSlot) return;
+            if (!draggedTask) return;
 
             const scrollContainer = scrollContainerRef.current;
             if (!scrollContainer) return;
 
             const containerRect = scrollContainer.getBoundingClientRect();
-            const cellWidth = 60;
             const scrollLeft = scrollContainer.scrollLeft;
 
             const relativeX = e.clientX - containerRect.left + scrollLeft - dragOffset;
-            const hourIndex = Math.floor(relativeX / cellWidth);
+            const totalHours = Math.max(0, relativeX / HOUR_WIDTH);
+            const totalMinutes = Math.round((totalHours * 60) / MINUTES_PER_SLOT) * MINUTES_PER_SLOT;
 
-            // Giới hạn startHour để thanh không vượt quá 24 giờ
-            // Tính toán: startHour + duration không được vượt quá 24
-            const maxStartHour = 24 - draggedSlot.duration;
-            const newStartHour = Math.max(0, Math.min(maxStartHour, hourIndex));
+            const newStartHour = Math.floor(totalMinutes / 60);
+            const newStartMinute = totalMinutes % 60;
 
-            const slotIndex = timeSlots.findIndex(s => s.id === draggedSlot.id);
-            if (slotIndex !== rowIndex) return;
+            const dragged = draggedTask as any;
 
-            const newStartTime = hourToTimeString(newStartHour);
-            const newEndTime = calculateEndTime(newStartHour, draggedSlot.duration);
+            if (newStartHour >= 24) return;
 
-            if (onTimeSlotChange) {
-                onTimeSlotChange(draggedSlot, draggedSlot.startTime, newStartTime, newEndTime);
+            const durationMinutes = Math.round(dragged.duration * 60);
+            if (totalMinutes + durationMinutes > 1440) return;
+
+            const parentId = dragged._parentId || dragged.id;
+
+            const taskIndex = tasks.findIndex(s => s.id === parentId);
+            if (taskIndex !== rowIndex) return;
+
+            const originalTask = tasks[taskIndex];
+            const updatedTask = { ...originalTask };
+
+            if (dragged._slotId && updatedTask.timeSlots) {
+                const newStartTotalMins = newStartHour * 60 + newStartMinute;
+                const newEndTotalMins = newStartTotalMins + durationMinutes;
+
+                const hasOverlap = updatedTask.timeSlots.some(slot => {
+                    if (slot.id === dragged._slotId) return false;
+
+                    const [sH, sM] = slot.startTime.split(':').map(Number);
+                    const slotStartMins = sH * 60 + sM;
+                    const slotEndMins = slotStartMins + Math.round(slot.duration * 60);
+
+                    return newStartTotalMins < slotEndMins && newEndTotalMins > slotStartMins;
+                });
+
+                if (hasOverlap) return;
             }
 
-            setTimeSlots(prev => prev.map(slot =>
-                slot.id === draggedSlot.id
-                    ? {
-                        ...slot,
-                        startHour: newStartHour,
-                        startTime: newStartTime,
-                        endTime: newEndTime
-                    }
-                    : slot
-            ));
+            const newStartTime = hourToTimeString(newStartHour, newStartMinute);
+            const newEndTime = calculateEndTime(newStartHour, newStartMinute, dragged.duration);
+
+            if (dragged._slotId && updatedTask.timeSlots) {
+                updatedTask.timeSlots = updatedTask.timeSlots.map(s =>
+                    s.id === dragged._slotId
+                        ? { ...s, startTime: newStartTime, endTime: newEndTime }
+                        : s
+                );
+            } else {
+                updatedTask.startTime = newStartTime;
+                updatedTask.endTime = newEndTime;
+                updatedTask.startHour = newStartHour;
+            }
+
+            if (onTimeSlotChange) {
+                onTimeSlotChange(updatedTask, dragged.startTime, newStartTime, newEndTime);
+            }
         };
 
         const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
             e.preventDefault();
+        };
+
+        const getDriverName = (driverId?: string): string => {
+            if (!driverId) return "未割付";
+            const driver = drivers.find(d => d.id === driverId);
+            return driver?.name || "未割付";
+        };
+
+        const getVehicleCode = (vehicleId?: string): string => {
+            if (!vehicleId) return "未割付";
+            const vehicle = vehicles.find(v => v.id === vehicleId);
+            return vehicle?.code || "未割付";
         };
 
         return (
@@ -295,7 +192,7 @@ const HourlyScheduleTable = forwardRef<HourlyScheduleTableRef, HourlyScheduleTab
                         <div className="flex gap-2">
                             <Button variant="grayBordered" size="sm">分割</Button>
                             <Button variant="grayBordered" size="sm">任意</Button>
-                            <Button variant="grayBordered" size="sm">回送設定</Button   >
+                            <Button variant="grayBordered" size="sm">回送設定</Button>
                         </div>
                         <div className="flex gap-4 text-sm">
                             <div className="flex items-center gap-2">
@@ -314,100 +211,171 @@ const HourlyScheduleTable = forwardRef<HourlyScheduleTableRef, HourlyScheduleTab
                     </div>
 
                     <div className="flex flex-1 min-h-0 overflow-hidden">
-                        <div className="shrink-0 border-r bg-gray-50 flex flex-col">
-                            <table className="w-full border-collapse">
+                        <div className="shrink-0 border-r bg-gray-50 flex flex-col pb-4">
+                            <Table className="w-full border-collapse">
                                 <TableHeader>
-                                    <TableRow className="h-12 border-b bg-gray-100 hover:bg-gray-100">
-                                        <TableHead className="px-3 py-2 text-left text-xs font-semibold w-24">編成グループ</TableHead>
-                                        <TableHead className="px-3 py-2 text-left text-xs font-semibold w-20">仕業<br />番号</TableHead>
-                                        <TableHead className="px-3 py-2 text-left text-xs font-semibold w-24">運転手</TableHead>
-                                        <TableHead className="px-3 py-2 text-left text-xs font-semibold w-16">出庫</TableHead>
-                                        <TableHead className="px-3 py-2 text-left text-xs font-semibold w-16">帰庫</TableHead>
-                                        <TableHead className="px-3 py-2 text-left text-xs font-semibold w-16">現着</TableHead>
-                                        <TableHead className="px-3 py-2 text-left text-xs font-semibold w-16">帰社</TableHead>
+                                    <TableRow className="h-5 border-b hover:bg-gray-100">
+                                        <TableHead rowSpan={2} className="px-2 py-1 text-center bg-[#F5F5F5] text-xs w-20 border-r align-middle">編成グループ</TableHead>
+                                        <TableHead rowSpan={2} className="px-2 py-1 text-center bg-[#F5F5F5] text-xs w-16 border-r align-middle">仕業ID</TableHead>
+                                        <TableHead rowSpan={2} className="px-2 py-1 text-center bg-[#E3F2FD] text-xs w-20 border-r align-middle">運転手</TableHead>
+                                        <TableHead rowSpan={2} className="px-2 py-1 text-center bg-[#E3F2FD] text-xs w-16 border-r align-middle">車両</TableHead>
+                                        <TableHead colSpan={2} className="px-2 py-1 text-center text-xs border-r bg-white align-middle">勤務開始時刻</TableHead>
+                                        <TableHead colSpan={2} className="px-2 py-1 text-center text-xs border-r bg-white align-middle">勤務終了時刻</TableHead>
+                                        <TableHead colSpan={2} className="px-2 py-1 text-center text-xs border-r bg-white align-middle">拘束時間</TableHead>
+                                        <TableHead colSpan={2} className="px-2 py-1 text-center text-xs bg-white align-middle">ハンドル時間</TableHead>
+                                    </TableRow>
+
+                                    <TableRow className="h-3 border-b hover:bg-gray-100">
+                                        <TableHead className="px-1 py-0.5 text-center text-xs w-12 bg-white border-r align-middle">予定</TableHead>
+                                        <TableHead className="px-1 py-0.5 text-center text-xs w-12 bg-white border-r align-middle">実績</TableHead>
+                                        <TableHead className="px-1 py-0.5 text-center text-xs w-12 bg-white border-r align-middle">予定</TableHead>
+                                        <TableHead className="px-1 py-0.5 text-center text-xs w-12 bg-white border-r align-middle">実績</TableHead>
+                                        <TableHead className="px-1 py-0.5 text-center text-xs w-12 bg-white border-r align-middle">予定</TableHead>
+                                        <TableHead className="px-1 py-0.5 text-center text-xs w-12 bg-white border-r align-middle">実績</TableHead>
+                                        <TableHead className="px-1 py-0.5 text-center text-xs w-12 bg-white border-r align-middle">予定</TableHead>
+                                        <TableHead className="px-1 py-0.5 text-center text-xs w-12 bg-white align-middle">実績</TableHead>
                                     </TableRow>
                                 </TableHeader>
-                            </table>
+                            </Table>
                             <div
                                 ref={fixedBodyRef}
                                 onScroll={handleFixedScroll}
                                 className="flex-1 overflow-y-auto overflow-x-hidden"
                             >
-                                <table className="w-full border-collapse">
+                                <Table className="w-full border-collapse">
                                     <TableBody>
-                                        {timeSlots.map((slot) => (
-                                            <TableRow key={slot.id} className="h-12">
-                                                <TableCell className="px-3 py-2 text-xs w-24">{slot.groupName}</TableCell>
-                                                <TableCell className="px-3 py-2 text-xs w-20">{slot.taskId}</TableCell>
-                                                <TableCell className="px-3 py-2 text-xs w-24">{slot.driverName}</TableCell>
-                                                <TableCell className="px-3 py-2 text-xs w-16">{slot.startTime}</TableCell>
-                                                <TableCell className="px-3 py-2 text-xs w-16">{slot.endTime}</TableCell>
-                                                <TableCell className="px-3 py-2 text-xs w-16">{slot.destinationTime}</TableCell>
-                                                <TableCell className="px-3 py-2 text-xs w-16">{slot.returnTime}</TableCell>
-                                            </TableRow>
-                                        ))}
+                                        {tasks.map((task) => {
+                                            const driverName = getDriverName(task.driverId);
+                                            const isUnassigned = !task.driverId;
+
+                                            return (
+                                                <TableRow key={task.id} className="h-8">
+                                                    <TableCell className="px-2 py-1 text-xs text-center w-20 align-middle">{task.groupName}</TableCell>
+                                                    <TableCell className="px-2 py-1 text-xs text-center w-19 align-middle">{task.taskId}</TableCell>
+                                                    <TableCell className={`px-2 py-1 text-xs text-center w-20 align-middle ${isUnassigned ? 'bg-[#6B7280]' : 'bg-[#E3F2FD]'}`}>
+                                                        <span
+                                                            className={`cursor-pointer hover:text-blue-600 hover:underline font-medium transition-colors ${isUnassigned ? 'text-white' : ''
+                                                                }`}
+                                                            onClick={() => onDriverClick?.(task)}
+                                                        >
+                                                            {driverName}
+                                                        </span>
+                                                    </TableCell>
+                                                    <TableCell className={`px-2 py-1 text-xs w-18 text-center align-middle ${!task.vehicleId ? 'bg-[#6B7280] text-white' : 'bg-[#E3F2FD] text-gray-600'}`}>
+                                                        {getVehicleCode(task.vehicleId)}
+                                                    </TableCell>
+                                                    <TableCell className="px-1 py-0.5 text-xs w-12 text-center align-middle">{task.startTime}</TableCell>
+                                                    <TableCell className="px-1 py-0.5 text-xs w-12 text-center align-middle bg-gray-50"></TableCell>
+                                                    <TableCell className="px-1 py-0.5 text-xs w-12 text-center align-middle">{task.endTime}</TableCell>
+                                                    <TableCell className="px-1 py-0.5 text-xs w-12 text-center align-middle bg-gray-50"></TableCell>
+                                                    <TableCell className="px-1 py-0.5 text-xs w-12 text-center align-middle">{task.destinationTime}</TableCell>
+                                                    <TableCell className="px-1 py-0.5 text-xs w-12 text-center align-middle bg-gray-50"></TableCell>
+                                                    <TableCell className="px-1 py-0.5 text-xs w-12 text-center align-middle">{task.returnTime}</TableCell>
+                                                    <TableCell className="px-1 py-0.5 text-xs w-12 text-center align-middle bg-gray-50"></TableCell>
+                                                </TableRow>
+                                            );
+                                        })}
                                     </TableBody>
-                                </table>
+                                </Table>
                             </div>
                         </div>
 
                         <div className="flex-1 flex flex-col overflow-hidden">
                             <div
-                                ref={scrollableBodyRef}
-                                onScroll={handleScrollableScroll}
-                                className="flex-1 overflow-auto"
+                                ref={scrollContainerRef}
+                                onScroll={handleHeaderScroll}
+                                className="shrink-0 overflow-x-auto [&::-webkit-scrollbar]:hidden"
+                                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
                             >
-                                <div ref={scrollContainerRef} className="inline-block min-w-full">
-                                    <table className="w-full border-collapse">
+                                <div className="inline-block min-w-full align-top">
+                                    <Table className="w-max border-collapse" style={{ tableLayout: 'fixed' }}>
                                         <TableHeader>
-                                            <TableRow className="h-12 border-b bg-gray-100 hover:bg-gray-100">
+                                            <TableRow className="border-b bg-gray-100 hover:bg-gray-100" style={{ height: '24px' }}>
                                                 {HOURS.map(hour => (
                                                     <TableHead
                                                         key={hour}
-                                                        className="px-0 py-2 text-xs font-semibold border-r text-center sticky top-0 bg-gray-100 z-20"
-                                                        style={{ minWidth: '60px', width: '60px' }}
+                                                        className="px-0 py-0 text-xs border-r text-center bg-gray-100 align-middle p-0"
+                                                        style={{ minWidth: `${HOUR_WIDTH}px`, width: `${HOUR_WIDTH}px`, height: '24px', lineHeight: '24px' }}
                                                     >
                                                         {hour}
                                                     </TableHead>
                                                 ))}
                                             </TableRow>
+                                            <TableRow className="border-b bg-gray-100 hover:bg-gray-100" style={{ height: '20px' }}>
+                                                {HOURS.map(hour => (
+                                                    <TableHead
+                                                        key={`sub-${hour}`}
+                                                        className="px-0 py-0 text-xs border-r text-center bg-gray-100 align-middle p-0"
+                                                        style={{ minWidth: `${HOUR_WIDTH}px`, width: `${HOUR_WIDTH}px`, height: '20px', lineHeight: '20px' }}
+                                                    >
+                                                    </TableHead>
+                                                ))}
+                                            </TableRow>
                                         </TableHeader>
+                                    </Table>
+                                </div>
+                            </div>
+
+                            <div
+                                ref={scrollableBodyRef}
+                                onScroll={handleScrollableScroll}
+                                className="flex-1 overflow-auto"
+                            >
+                                <div className="inline-block min-w-full align-top">
+                                    <Table className="w-max border-collapse" style={{ tableLayout: 'fixed' }}>
                                         <TableBody>
-                                            {timeSlots.map((slot, rowIndex) => (
-                                                <TableRow
-                                                    key={slot.id}
-                                                    className="h-12 border-b relative hover:bg-transparent"
-                                                    onDrop={(e) => handleDrop(e, rowIndex)}
-                                                    onDragOver={handleDragOver}
-                                                >
-                                                    {HOURS.map(hour => (
-                                                        <TableCell
-                                                            key={hour}
-                                                            className="border-r relative p-0"
-                                                            style={{
-                                                                minWidth: '60px',
-                                                                width: '60px',
-                                                            }}
-                                                        >
-                                                            {hour === slot.startHour && (
-                                                                <TimeSlotBar
-                                                                    slot={slot}
-                                                                    onDragStart={handleDragStart}
-                                                                    onDragEnd={handleDragEnd}
-                                                                />
-                                                            )}
-                                                        </TableCell>
-                                                    ))}
-                                                </TableRow>
-                                            ))}
+                                            {tasks.map((task, rowIndex) => {
+                                                const slots = task.timeSlots || [task];
+
+                                                return (
+                                                    <TableRow
+                                                        key={task.id}
+                                                        className="h-8 border-b relative hover:bg-transparent"
+                                                        onDrop={(e) => handleDrop(e, rowIndex)}
+                                                        onDragOver={handleDragOver}
+                                                    >
+                                                        {HOURS.map(hour => {
+                                                            const startingSlots = slots.filter(s => {
+                                                                const [startH] = s.startTime.split(':').map(Number);
+                                                                return startH === hour;
+                                                            });
+
+                                                            return (
+                                                                <TableCell
+                                                                    key={hour}
+                                                                    className="border-r relative p-0"
+                                                                    style={{
+                                                                        minWidth: `${HOUR_WIDTH}px`,
+                                                                        width: `${HOUR_WIDTH}px`,
+                                                                    }}
+                                                                >
+                                                                    {startingSlots.map((slot, idx) => (
+                                                                        <TimeSlotBar
+                                                                            key={slot.id || `${task.id}-${hour}-${idx}`}
+                                                                            slot={{
+                                                                                ...task,
+                                                                                ...slot,
+                                                                                _parentId: task.id,
+                                                                                _slotId: slot.id
+                                                                            } as any}
+                                                                            onDragStart={handleDragStart}
+                                                                            onDragEnd={handleDragEnd}
+                                                                        />
+                                                                    ))}
+                                                                </TableCell>
+                                                            );
+                                                        })}
+                                                    </TableRow>
+                                                );
+                                            })}
                                         </TableBody>
-                                    </table>
+                                    </Table>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </TableWrapper>
+            </TableWrapper >
         );
     }
 );

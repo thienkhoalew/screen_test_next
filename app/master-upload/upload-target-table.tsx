@@ -28,7 +28,6 @@ export function UploadTargetTable() {
                     </TableHeader>
 
                     <TableBody>
-                        {/* Row 1 */}
                         <TableRow>
                             <TableCell>1</TableCell>
                             <TableCell>運転手マスタ</TableCell>
@@ -43,7 +42,6 @@ export function UploadTargetTable() {
                             </TableCell>
                         </TableRow>
 
-                        {/* Row 2 */}
                         <TableRow>
                             <TableCell>2</TableCell>
                             <TableCell>車両マスタ</TableCell>
@@ -58,7 +56,6 @@ export function UploadTargetTable() {
                             </TableCell>
                         </TableRow>
 
-                        {/* Row 3 */}
                         <TableRow>
                             <TableCell>3</TableCell>
                             <TableCell>仕業マスタ</TableCell>
@@ -73,7 +70,6 @@ export function UploadTargetTable() {
                             </TableCell>
                         </TableRow>
 
-                        {/* Row 4 */}
                         <TableRow>
                             <TableCell>4</TableCell>
                             <TableCell>基本ローテーションマスタ</TableCell>
