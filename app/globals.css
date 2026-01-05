@@ -121,3 +121,11 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer base {
+  ::placeholder {
+    font-family: var(--font-noto-jp), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Arial !important;
+    font-weight: 400;
+    opacity: 1;
+  }
+}
