@@ -2,15 +2,10 @@
 
 import { use, useRef } from "react";
 import { Button } from "@/components/ui/button";
-<<<<<<< Updated upstream
-import TableWrapper from "@/components/ui/table-wrapper";
-import DetailsTable from "./detailsTable";
-=======
 import TableWrapper from "@/components/features/schedule/TableWrapper";
 import DetailsTable, { DetailsTableRef } from "./detailsTable";
 import VehicleTable from "./vehicleTable";
 import { Circle } from "lucide-react";
->>>>>>> Stashed changes
 
 export default function WorkingDetailPage({
   params,
@@ -69,14 +64,6 @@ export default function WorkingDetailPage({
         </span>
       </div>
 
-<<<<<<< Updated upstream
-      <TableWrapper className="flex-1 min-h-0" title="勤務計画表: 2025/12/01~2025/12/31">
-        <DetailsTable />
-      </TableWrapper>
-
-      <div className="w-full flex justify-end mt-2 z-50">
-        <Button>作成実行</Button>
-=======
       <TableWrapper className="flex-1" title={
         <div className="flex items-center gap-12">
           <span className="text-[20px]">勤務表期間 : 2025/12/01~2025/12/31</span>
@@ -95,7 +82,6 @@ export default function WorkingDetailPage({
       <div className="w-full flex justify-end mt-2 z-50 gap-6">
         <Button className="bg-black text-white hover:bg-gray-800 w-[172px] h-[48px] rounded-[10px] text-[24px]" onClick={handleSubmit}>保存</Button>
         <Button className="bg-black text-white hover:bg-gray-800 w-[172px] h-[48px] rounded-[10px] text-[24px]">確定</Button>
->>>>>>> Stashed changes
       </div>
 
     </div>
