@@ -8,9 +8,10 @@ import { Upload, FileIcon, X } from "lucide-react";
 interface FileUploadBoxProps {
     onFileSelect?: (file: File | null) => void;
     className?: string;
+    textLayout?: 'singleline' | 'multiline';
 }
 
-export function FileUploadBox({ onFileSelect, className }: FileUploadBoxProps) {
+export function FileUploadBox({ onFileSelect, className, textLayout = 'multiline' }: FileUploadBoxProps) {
     const [file, setFile] = useState<File | null>(null);
     const inputRef = useRef<HTMLInputElement>(null);
     const [isDragging, setIsDragging] = useState(false);
@@ -86,7 +87,7 @@ export function FileUploadBox({ onFileSelect, className }: FileUploadBoxProps) {
                 <div className="flex flex-col items-center justify-center w-full py-4">
                     <div className="flex items-center gap-4 bg-white p-4 rounded-lg border shadow-sm relative">
                         <div className="bg-blue-100 p-3 rounded-lg">
-                            <FileIcon className="w-8 h-8 text-blue-600" />
+                            <FileIcon className="w-[128px] h-[128px] text-blue-600" />
                         </div>
                         <div className="flex flex-col">
                             <span className="font-medium text-gray-900">{file.name}</span>
@@ -108,16 +109,21 @@ export function FileUploadBox({ onFileSelect, className }: FileUploadBoxProps) {
                         <div className="w-[95px] h-[95px] border rounded-xl flex items-center justify-center bg-white">
                             <Upload className="w-12 h-12 text-gray-500" />
                         </div>
-                        <p className="text-xs text-gray-500 mt-2 leading-tight text-center">
-                            ファイルを<br />ここにドラッグ＆ドロップ
+                        <p className="text-[18px] text-[#364153] mt-2 leading-tight text-center">
+                            {textLayout === 'singleline' ? (
+                                'ファイルをここにドラッグ＆ドロップ'
+                            ) : (
+                                <>
+                                    ファイルを<br />ここにドラッグ＆ドロップ
+                                </>
+                            )}
                         </p>
                     </div>
 
-                    <div className="text-gray-400 text-sm hidden sm:block">または</div>
-
+                    <div className="text-[#6A7282] text-[16px] hidden sm:block">または</div>
                     <Button
-                        variant="customWhite"
-                        className="w-full sm:w-auto pointer-events-none"
+                        variant="whiteUploadBox"
+                        className="pointer-events-none w-[273px] h-[50px] text-[16px]"
                         type="button"
                     >
                         ファイルを選択
