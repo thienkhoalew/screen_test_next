@@ -1,5 +1,4 @@
 "use client";
-
 import { Button } from "@/components/ui/button";
 import { UploadTargetTable } from "./upload-target-table";
 import { CurrentMasterTable } from "./current-master-table";
@@ -11,16 +10,16 @@ export default function MasterUploadPage() {
   };
 
   return (
-    <div className="max-w-[1600px] mx-auto p-4 space-y-6">
+    <div className="mx-auto p-4 space-y-6 bg-[#FFFBFA]">
 
-      <h2 className="text-2xl font-bold">基本マスタアップロード</h2>
+      <h2 className="text-[32px] font-bold">基本マスタアップロード</h2>
 
-      <div className="w-full flex justify-center flex-col md:flex-row items-start md:items-center gap-6">
-        <div className="w-full md:w-[70%]">
+      <div className="flex justify-center flex-col md:flex-row items-start md:items-end gap-6">
+        <div className="w-[1063px]">
           <FileUploadBox onFileSelect={handleFileSelect} />
         </div>
 
-        <Button className="w-full md:w-auto h-9 bg-black text-white hover:bg-gray-900 w-32">
+          <Button className="w-[165px] h-[59px] bg-black text-white hover:bg-gray-900 text-[24px]">
           取込実行
         </Button>
       </div>

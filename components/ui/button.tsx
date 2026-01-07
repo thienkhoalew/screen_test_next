@@ -9,7 +9,7 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        default: "bg-primary text-primary-foreground",
         destructive:
           "bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
         outline:
@@ -21,6 +21,7 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         customBlue: "h-9 bg-blue-600 text-white hover:bg-blue-700",
         customWhite: "h-9 w-45 bg-white text-black border border-gray-300 hover:bg-gray-100",
+        whiteUploadBox: "bg-white text-black border border-gray-300 hover:bg-gray-100",
         menu: "bg-transparent text-white h-12 px-8 text-base flex items-center justify-center hover:bg-blue-700/30 transition",
         menuActive: "bg-blue-600 text-white h-12 px-8 text-base flex items-center justify-center",
         big_lightblue: "bg-blue-100 text-black hover:bg-blue-200 shadow rounded-none text-2xl h-[300px] flex items-center justify-center w-[500px] border-none",
