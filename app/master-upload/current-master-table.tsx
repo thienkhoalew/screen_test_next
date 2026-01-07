@@ -13,7 +13,7 @@ export function CurrentMasterTable() {
     return (
         <div>
             <h3 className="font-bold text-[20px] mb-2">現在のマスタ設定ファイル</h3>
-            <div className="max-h-[220px] overflow-y-auto">
+            <div className="max-h-[447px] overflow-y-auto">
                 <Table>
                     <TableHeader className="h-[63px] text-[16px] w-[6%]">
                         <TableRow className="bg-[#F9FAFB]">

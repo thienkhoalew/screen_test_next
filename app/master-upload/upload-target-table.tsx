@@ -16,7 +16,7 @@ export function UploadTargetTable() {
         <div>
             <h3 className="font-bold text-[20px] mb-2">アップロード対象</h3>
 
-            <div className="max-h-[220px] overflow-y-auto">
+            <div className="max-h-[447px] overflow-y-auto">
                 <Table>
                     <TableHeader className="h-[63px] text-[16px]">
                         <TableRow className="bg-[#F9FAFB]">
