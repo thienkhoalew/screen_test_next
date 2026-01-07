@@ -14,11 +14,11 @@ import {
 export function UploadTargetTable() {
     return (
         <div>
-            <h3 className="font-semibold mb-2">アップロード対象</h3>
+            <h3 className="font-bold text-[20px] mb-2">アップロード対象</h3>
 
-            <div className="max-h-[220px] overflow-y-auto rounded-lg border">
+            <div className="max-h-[220px] overflow-y-auto">
                 <Table>
-                    <TableHeader>
+                    <TableHeader className="h-[63px] text-[16px]">
                         <TableRow className="bg-[#F9FAFB]">
                             <TableHead className="w-[50px]">No</TableHead>
                             <TableHead>マスタ名</TableHead>
@@ -28,7 +28,7 @@ export function UploadTargetTable() {
                     </TableHeader>
 
                     <TableBody>
-                        <TableRow>
+                        <TableRow className="h-[64px] text-[16px]">
                             <TableCell>1</TableCell>
                             <TableCell>運転手マスタ</TableCell>
                             <TableCell>driver_fms_20251111152344.csv</TableCell>
@@ -42,7 +42,7 @@ export function UploadTargetTable() {
                             </TableCell>
                         </TableRow>
 
-                        <TableRow>
+                        <TableRow className="h-[64px] text-[16px]">
                             <TableCell>2</TableCell>
                             <TableCell>車両マスタ</TableCell>
                             <TableCell> </TableCell>
@@ -56,7 +56,7 @@ export function UploadTargetTable() {
                             </TableCell>
                         </TableRow>
 
-                        <TableRow>
+                        <TableRow className="h-[64px] text-[16px]">
                             <TableCell>3</TableCell>
                             <TableCell>仕業マスタ</TableCell>
                             <TableCell>sigyo_fms_20251111152355.csv</TableCell>
@@ -70,7 +70,7 @@ export function UploadTargetTable() {
                             </TableCell>
                         </TableRow>
 
-                        <TableRow>
+                        <TableRow className="h-[64px] text-[16px]">
                             <TableCell>4</TableCell>
                             <TableCell>基本ローテーションマスタ</TableCell>
                             <TableCell> </TableCell>
@@ -84,7 +84,7 @@ export function UploadTargetTable() {
                             </TableCell>
                         </TableRow>
 
-                        <TableRow>
+                        <TableRow className="h-[64px] text-[16px]">
                             <TableCell>5</TableCell>
                             <TableCell>車両割付マスタ</TableCell>
                             <TableCell> </TableCell>
@@ -98,7 +98,7 @@ export function UploadTargetTable() {
                             </TableCell>
                         </TableRow>
 
-                        <TableRow>
+                        <TableRow className="h-[64px] text-[16px]">
                             <TableCell>6</TableCell>
                             <TableCell>便マスタ</TableCell>
                             <TableCell> </TableCell>
