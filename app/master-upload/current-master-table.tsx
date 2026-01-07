@@ -12,12 +12,12 @@ import {
 export function CurrentMasterTable() {
     return (
         <div>
-            <h3 className="font-semibold mb-2">現在のマスタ設定ファイル</h3>
-            <div className="max-h-[220px] overflow-y-auto rounded-lg border">
+            <h3 className="font-bold text-[20px] mb-2">現在のマスタ設定ファイル</h3>
+            <div className="max-h-[220px] overflow-y-auto">
                 <Table>
-                    <TableHeader>
+                    <TableHeader className="h-[63px] text-[16px] w-[6%]">
                         <TableRow className="bg-[#F9FAFB]">
-                            <TableHead className="w-[50px]">No</TableHead>
+                            <TableHead>No</TableHead>
                             <TableHead>マスタ名</TableHead>
                             <TableHead>ファイル名</TableHead>
                             <TableHead>アップロード日時</TableHead>
@@ -25,7 +25,7 @@ export function CurrentMasterTable() {
                     </TableHeader>
 
                     <TableBody>
-                        <TableRow>
+                        <TableRow className="h-[64px] text-[16px]">
                             <TableCell>1</TableCell>
                             <TableCell>運転手マスタ</TableCell>
                             <TableCell>
@@ -36,7 +36,7 @@ export function CurrentMasterTable() {
                             <TableCell>2025-10-28 19:19:31</TableCell>
                         </TableRow>
 
-                        <TableRow>
+                        <TableRow className="h-[64px] text-[16px]">
                             <TableCell>2</TableCell>
                             <TableCell>車両マスタ</TableCell>
                             <TableCell>
@@ -47,7 +47,7 @@ export function CurrentMasterTable() {
                             <TableCell>2025-03-24 19:19:31</TableCell>
                         </TableRow>
 
-                        <TableRow>
+                        <TableRow className="h-[64px] text-[16px]">
                             <TableCell>3</TableCell>
                             <TableCell>仕業マスタ</TableCell>
                             <TableCell>
@@ -58,7 +58,7 @@ export function CurrentMasterTable() {
                             <TableCell>2025-03-24 19:19:31</TableCell>
                         </TableRow>
 
-                        <TableRow>
+                        <TableRow className="h-[64px] text-[16px]">
                             <TableCell>4</TableCell>
                             <TableCell>基本ローテーションマスタ</TableCell>
                             <TableCell>
@@ -69,7 +69,7 @@ export function CurrentMasterTable() {
                             <TableCell>2025-03-24 19:19:31</TableCell>
                         </TableRow>
 
-                        <TableRow>
+                        <TableRow className="h-[64px] text-[16px]">
                             <TableCell>5</TableCell>
                             <TableCell>車両割付マスタ</TableCell>
                             <TableCell>
@@ -80,7 +80,7 @@ export function CurrentMasterTable() {
                             <TableCell>2025-03-24 19:19:31</TableCell>
                         </TableRow>
 
-                        <TableRow>
+                        <TableRow className="h-[64px] text-[16px]">
                             <TableCell>6</TableCell>
                             <TableCell>便マスタ</TableCell>
                             <TableCell>
