@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Geist, Geist_Mono, Inter, Arimo } from "next/font/google";
 import {  Noto_Sans_JP } from 'next/font/google'
 import { Geist, Geist_Mono, Inter, Sen } from "next/font/google";
 import "./globals.css";
@@ -23,6 +24,8 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
+const arimo = Arimo({
+  variable: "--font-arimo",
 const sen = Sen({
   variable: "--font-sen",
   subsets: ["latin"],
@@ -39,6 +42,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${arimo.variable}`}>
+      <body className="antialiased">
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${sen.variable} ${notoJP.variable} antialiased`}

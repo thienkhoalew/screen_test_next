@@ -30,7 +30,7 @@ export interface HourlyScheduleTableRef {
 }
 
 const HOURS = Array.from({ length: 24 }, (_, i) => i);
-const HOUR_WIDTH = 36;
+const HOUR_WIDTH = 75;
 const MINUTES_PER_SLOT = 20;
 
 function hourToTimeString(hour: number, minute: number = 0): string {
@@ -187,60 +187,61 @@ const HourlyScheduleTable = forwardRef<HourlyScheduleTableRef, HourlyScheduleTab
 
         return (
             <TableWrapper title="" className={className}>
-                <div className="flex flex-col h-full overflow-hidden">
-                    <div className="flex items-center justify-between px-4 py-2 border-b shrink-0">
-                        <div className="flex gap-2">
-                            <Button variant="grayBordered" size="sm">分割</Button>
-                            <Button variant="grayBordered" size="sm">任意</Button>
-                            <Button variant="grayBordered" size="sm">回送設定</Button>
+                <div className="flex flex-col overflow-auto border border-[#E5DDD0] rounded-md">
+                    <div className="flex items-center justify-between px-3 py-2 shrink-0">
+                        <div className="flex gap-5">
+                            <Button variant="grayBordered" className="w-[73px]">分割</Button>
+                            <Button variant="grayBordered" className="w-[73px]">任意</Button>
+                            <Button variant="grayBordered" className="w-[99px]">回送設定</Button>
                         </div>
-                        <div className="flex gap-4 text-sm">
+                        <div className="flex gap-7 text-[24px]">
                             <div className="flex items-center gap-2">
-                                <div className="w-12 h-6 rounded bg-[#2B7FFF]"></div>
+                                <div className="w-[85px] h-[40px] rounded bg-[#2B7FFF]"></div>
                                 <span>実車</span>
                             </div>
                             <div className="flex items-center gap-2">
-                                <div className="w-12 h-6 rounded bg-[#9EC5FF]"></div>
+                                <div className="w-[85px] h-[40px] rounded bg-[#9EC5FF]"></div>
                                 <span>回送</span>
                             </div>
                             <div className="flex items-center gap-2">
-                                <div className="w-12 h-6 rounded bg-[#7CB342]"></div>
+                                <div className="w-[85px] h-[40px] rounded bg-[#7CB342]"></div>
                                 <span>充電</span>
                             </div>
                         </div>
                     </div>
 
                     <div className="flex flex-1 min-h-0 overflow-hidden">
-                        <div className="shrink-0 border-r bg-gray-50 flex flex-col pb-4">
+                        <div className="shrink-0 border-r bg-gray-50 flex flex-col pb-5">
                             <Table className="w-full border-collapse">
                                 <TableHeader>
-                                    <TableRow className="h-5 border-b hover:bg-gray-100">
-                                        <TableHead rowSpan={2} className="px-2 py-1 text-center bg-[#F5F5F5] text-xs w-20 border-r align-middle">編成グループ</TableHead>
-                                        <TableHead rowSpan={2} className="px-2 py-1 text-center bg-[#F5F5F5] text-xs w-16 border-r align-middle">仕業ID</TableHead>
-                                        <TableHead rowSpan={2} className="px-2 py-1 text-center bg-[#E3F2FD] text-xs w-20 border-r align-middle">運転手</TableHead>
-                                        <TableHead rowSpan={2} className="px-2 py-1 text-center bg-[#E3F2FD] text-xs w-16 border-r align-middle">車両</TableHead>
-                                        <TableHead colSpan={2} className="px-2 py-1 text-center text-xs border-r bg-white align-middle">勤務開始時刻</TableHead>
-                                        <TableHead colSpan={2} className="px-2 py-1 text-center text-xs border-r bg-white align-middle">勤務終了時刻</TableHead>
-                                        <TableHead colSpan={2} className="px-2 py-1 text-center text-xs border-r bg-white align-middle">拘束時間</TableHead>
-                                        <TableHead colSpan={2} className="px-2 py-1 text-center text-xs bg-white align-middle">ハンドル時間</TableHead>
+                                    <TableRow className="h-[25px] border-b hover:bg-gray-100">
+                                        <TableHead rowSpan={2} className="text-center text-[16px] bg-[#F5F5F5] border-r align-middle w-[112px]">編成グループ</TableHead>
+                                        <TableHead rowSpan={2} className="text-center text-[16px] bg-[#F5F5F5] border-r align-middle w-[95px]">仕業ID</TableHead>
+                                        <TableHead rowSpan={2} className="text-center text-[16px] bg-[#E3F2FD] border-r align-middle w-[112px]">運転手</TableHead>
+                                        <TableHead rowSpan={2} className="text-center text-[16px] bg-[#E3F2FD] border-r align-middle w-[112px]">車両</TableHead>
+                                        <TableHead colSpan={2} className="text-center text-[14px] border-r bg-white align-middle w-[127px]">勤務開始時刻</TableHead>
+                                        <TableHead colSpan={2} className="text-center text-[14px] border-r bg-white align-middle w-[127px]">勤務終了時刻</TableHead>
+                                        <TableHead colSpan={2} className="text-center text-[14px] border-r bg-white align-middle w-[127px]">拘束時間</TableHead>
+                                        <TableHead colSpan={2} className="text-center text-[14px] bg-white align-middle w-[127px]">ハンドル時間</TableHead>
                                     </TableRow>
 
-                                    <TableRow className="h-3 border-b hover:bg-gray-100">
-                                        <TableHead className="px-1 py-0.5 text-center text-xs w-12 bg-white border-r align-middle">予定</TableHead>
-                                        <TableHead className="px-1 py-0.5 text-center text-xs w-12 bg-white border-r align-middle">実績</TableHead>
-                                        <TableHead className="px-1 py-0.5 text-center text-xs w-12 bg-white border-r align-middle">予定</TableHead>
-                                        <TableHead className="px-1 py-0.5 text-center text-xs w-12 bg-white border-r align-middle">実績</TableHead>
-                                        <TableHead className="px-1 py-0.5 text-center text-xs w-12 bg-white border-r align-middle">予定</TableHead>
-                                        <TableHead className="px-1 py-0.5 text-center text-xs w-12 bg-white border-r align-middle">実績</TableHead>
-                                        <TableHead className="px-1 py-0.5 text-center text-xs w-12 bg-white border-r align-middle">予定</TableHead>
-                                        <TableHead className="px-1 py-0.5 text-center text-xs w-12 bg-white align-middle">実績</TableHead>
+                                    <TableRow className="h-[25px] text-[14px] border-b hover:bg-gray-100">
+                                        <TableHead className="text-center bg-white border-r align-middle">予定</TableHead>
+                                        <TableHead className="text-center bg-white border-r align-middle">実績</TableHead>
+                                        <TableHead className="text-center bg-white border-r align-middle">予定</TableHead>
+                                        <TableHead className="text-center bg-white border-r align-middle">実績</TableHead>
+                                        <TableHead className="text-center bg-white border-r align-middle">予定</TableHead>
+                                        <TableHead className="text-center bg-white border-r align-middle">実績</TableHead>
+                                        <TableHead className="text-center bg-white border-r align-middle">予定</TableHead>
+                                        <TableHead className="text-center bg-white align-middle">実績</TableHead>
                                     </TableRow>
                                 </TableHeader>
                             </Table>
                             <div
                                 ref={fixedBodyRef}
                                 onScroll={handleFixedScroll}
-                                className="flex-1 overflow-y-auto overflow-x-hidden"
+                                className="flex-1 overflow-y-auto overflow-x-hidden [&::-webkit-scrollbar]:hidden"
+                                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
                             >
                                 <Table className="w-full border-collapse">
                                     <TableBody>
@@ -249,10 +250,10 @@ const HourlyScheduleTable = forwardRef<HourlyScheduleTableRef, HourlyScheduleTab
                                             const isUnassigned = !task.driverId;
 
                                             return (
-                                                <TableRow key={task.id} className="h-8">
-                                                    <TableCell className="px-2 py-1 text-xs text-center w-20 align-middle">{task.groupName}</TableCell>
-                                                    <TableCell className="px-2 py-1 text-xs text-center w-19 align-middle">{task.taskId}</TableCell>
-                                                    <TableCell className={`px-2 py-1 text-xs text-center w-20 align-middle ${isUnassigned ? 'bg-[#6B7280]' : 'bg-[#E3F2FD]'}`}>
+                                                <TableRow key={task.id} className="h-[50px] text-[16px]">
+                                                    <TableCell className="text-center align-middle w-[112px]">{task.groupName}</TableCell>
+                                                    <TableCell className="text-center align-middle w-[95px]">{task.taskId}</TableCell>
+                                                    <TableCell className={`text-center align-middle w-[112px] ${isUnassigned ? 'bg-[#6B7280]' : 'bg-[#E3F2FD]'}`}>
                                                         <span
                                                             className={`cursor-pointer hover:text-blue-600 hover:underline font-medium transition-colors ${isUnassigned ? 'text-white' : ''
                                                                 }`}
@@ -261,17 +262,17 @@ const HourlyScheduleTable = forwardRef<HourlyScheduleTableRef, HourlyScheduleTab
                                                             {driverName}
                                                         </span>
                                                     </TableCell>
-                                                    <TableCell className={`px-2 py-1 text-xs w-18 text-center align-middle ${!task.vehicleId ? 'bg-[#6B7280] text-white' : 'bg-[#E3F2FD] text-gray-600'}`}>
+                                                    <TableCell className={`text-center align-middle w-[112px] ${!task.vehicleId ? 'bg-[#6B7280] text-white' : 'bg-[#E3F2FD] text-gray-600'}`}>
                                                         {getVehicleCode(task.vehicleId)}
                                                     </TableCell>
-                                                    <TableCell className="px-1 py-0.5 text-xs w-12 text-center align-middle">{task.startTime}</TableCell>
-                                                    <TableCell className="px-1 py-0.5 text-xs w-12 text-center align-middle bg-gray-50"></TableCell>
-                                                    <TableCell className="px-1 py-0.5 text-xs w-12 text-center align-middle">{task.endTime}</TableCell>
-                                                    <TableCell className="px-1 py-0.5 text-xs w-12 text-center align-middle bg-gray-50"></TableCell>
-                                                    <TableCell className="px-1 py-0.5 text-xs w-12 text-center align-middle">{task.destinationTime}</TableCell>
-                                                    <TableCell className="px-1 py-0.5 text-xs w-12 text-center align-middle bg-gray-50"></TableCell>
-                                                    <TableCell className="px-1 py-0.5 text-xs w-12 text-center align-middle">{task.returnTime}</TableCell>
-                                                    <TableCell className="px-1 py-0.5 text-xs w-12 text-center align-middle bg-gray-50"></TableCell>
+                                                    <TableCell className="text-center align-middle w-[64px]">{task.startTime}</TableCell>
+                                                    <TableCell className="text-center align-middle bg-gray-50 w-[63px]"></TableCell>
+                                                    <TableCell className="text-center align-middle w-[64px]">{task.endTime}</TableCell>
+                                                    <TableCell className="text-center align-middle bg-gray-50 w-[63px]"></TableCell>
+                                                    <TableCell className="text-center align-middle w-[64px]">{task.destinationTime}</TableCell>
+                                                    <TableCell className="text-center align-middle bg-gray-50 w-[63px]"></TableCell>
+                                                    <TableCell className="text-center align-middle w-[64px]">{task.returnTime}</TableCell>
+                                                    <TableCell className="text-center align-middle bg-gray-50 w-[63px]"></TableCell>
                                                 </TableRow>
                                             );
                                         })}
@@ -301,12 +302,12 @@ const HourlyScheduleTable = forwardRef<HourlyScheduleTableRef, HourlyScheduleTab
                                                     </TableHead>
                                                 ))}
                                             </TableRow>
-                                            <TableRow className="border-b bg-gray-100 hover:bg-gray-100" style={{ height: '20px' }}>
+                                            <TableRow className="border-b bg-gray-100 hover:bg-gray-100" style={{ height: '25px' }}>
                                                 {HOURS.map(hour => (
                                                     <TableHead
                                                         key={`sub-${hour}`}
                                                         className="px-0 py-0 text-xs border-r text-center bg-gray-100 align-middle p-0"
-                                                        style={{ minWidth: `${HOUR_WIDTH}px`, width: `${HOUR_WIDTH}px`, height: '20px', lineHeight: '20px' }}
+                                                        style={{ minWidth: `${HOUR_WIDTH}px`, width: `${HOUR_WIDTH}px`, height: '26px', lineHeight: '25px' }}
                                                     >
                                                     </TableHead>
                                                 ))}
@@ -330,7 +331,7 @@ const HourlyScheduleTable = forwardRef<HourlyScheduleTableRef, HourlyScheduleTab
                                                 return (
                                                     <TableRow
                                                         key={task.id}
-                                                        className="h-8 border-b relative hover:bg-transparent"
+                                                        className="h-[50px] border-b relative hover:bg-transparent"
                                                         onDrop={(e) => handleDrop(e, rowIndex)}
                                                         onDragOver={handleDragOver}
                                                     >

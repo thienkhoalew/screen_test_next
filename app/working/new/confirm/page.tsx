@@ -14,7 +14,7 @@ export default function ConfirmPage() {
       </div>
         <ConfirmTable/>
 
-      <div className="w-full flex justify-end shrink-0 mt-2 z-50">
+      <div className="w-full flex justify-end shrink-0 mt-2 z-50 w-[172px] h-[34px]">
         <Button>作成実行</Button>
       </div>
 

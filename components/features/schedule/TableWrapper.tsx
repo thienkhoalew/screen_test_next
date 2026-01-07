@@ -31,8 +31,8 @@ export default function TableWrapper({
     return (
         <div className={cn("w-full flex flex-col", className)}>
             <div className="flex items-center justify-between mb-2 shrink-0">
-                <div className="flex items-center gap-4">
-                    <h2 className="text-lg font-semibold text-gray-800">{title}</h2>
+                <div className="flex items-center">
+                    {title}
                 </div>
 
                 <div className="flex items-center gap-0">
@@ -53,7 +53,7 @@ export default function TableWrapper({
                 </div>
             </div>
 
-            <div className="border rounded-xl p-2 bg-white shadow flex-1 min-h-0 flex flex-col overflow-hidden">
+            <div className="bg-white flex-1 min-h-0 flex flex-col overflow-hidden">
                 {typeof children === "function" ? children(viewMode) : children}
             </div>
         </div>

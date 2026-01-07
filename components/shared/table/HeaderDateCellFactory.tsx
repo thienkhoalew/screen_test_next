@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { getWeekday, isSaturday, isSunday, isWeekend } from "@/lib/weekday-utils";
+import Link from "next/link";
 
 export interface HeaderDateCellConfig {
     startDayOfWeek?: number;
@@ -12,6 +13,7 @@ export interface HeaderDateCellConfig {
     sundayColor?: string;
     weekendColor?: string;
     useSeparateWeekendColors?: boolean;
+    workingId?: string;
 }
 
 export const createHeaderDateCell = (config: HeaderDateCellConfig = {}) => {
@@ -26,6 +28,7 @@ export const createHeaderDateCell = (config: HeaderDateCellConfig = {}) => {
         sundayColor = "text-red-500",
         weekendColor = "text-blue-500 bg-blue-50",
         useSeparateWeekendColors = false,
+        workingId = "1",
     } = config;
 
     return function HeaderDateCell({ day }: { day: number }) {
@@ -54,14 +57,29 @@ export const createHeaderDateCell = (config: HeaderDateCellConfig = {}) => {
             label = weekdayLabel;
         }
 
+        let textColor = "text-[#6A7282]";
+        if (isSat) {
+            textColor = "text-[#2563EB]";
+        } else if (isSun) {
+            textColor = "text-[#FB2C36]";
+        }
+
         return (
-            <div className={cn("flex flex-col items-center justify-center h-full", colorClass)}>
-                <span className="text-lg font-bold">{day}</span>
-                <span className="text-xs">
+            <Link
+                href={`/working/${workingId}/assign?day=${day}`}
+                className={cn(
+                    "flex flex-col items-center justify-center h-full w-full hover:opacity-70 transition-opacity",
+                    colorClass
+                )}
+            >
+                <span className={cn("text-xs font-bold underline", textColor)}>{day}</span>
+                <span className={cn("text-xs w-full text-center py-0.5 underline", textColor)}>
                     {weekday}
+                </span>
+                <span className={cn("text-xs underline", textColor)}>
                     {label}
                 </span>
-            </div>
+            </Link>
         );
     };
 };

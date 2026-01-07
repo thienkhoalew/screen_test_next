@@ -9,10 +9,14 @@ interface TaskCardProps {
 
 export const TaskCard = ({ code, value, className, hideValue }: TaskCardProps) => {
     return (
-        <div className={cn("flex flex-col items-center justify-center text-xs font-semibold text-gray-700 p-0.5", className)}>
-            <span className="text-[10px] text-gray-500 font-bold hover:text-blue-600 cursor-pointer">{code}</span>
+        <div className={cn("flex flex-col items-center justify-center gap-1 w-full text-[10px]", className)}>
+            <div className="bg-[#F3F4F6] rounded w-full text-center">
+                <span className= "text-gray-700">{code}</span>
+            </div>
             {!hideValue && (
-                <span className="bg-gray-100 px-1.5 py-0.5 rounded text-gray-400 min-w-[32px] text-center">{value}</span>
+                <div className="bg-white border border-[#D1D5DC] px-2 py-0.5 rounded w-full text-center">
+                    <span className="text-[#6A7282]">{value}</span>
+                </div>
             )}
         </div>
     );

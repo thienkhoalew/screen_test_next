@@ -29,15 +29,14 @@ export default function DriverListSection({ className, driverCategories, history
             <div className="flex flex-1 min-h-0">
                 <div className="flex-1 flex flex-col min-w-0 p-2 gap-2">
                     <div className="flex items-center justify-between shrink-0">
-                        <div className="flex items-center gap-2">
-                            <h3 className="font-bold text-lg text-gray-800">割付可能運転手一覧</h3>
-                            <span className="text-sm text-gray-500">({totalDrivers}名)</span>
+                        <div className="flex items-center gap-2 text-[32px] ">
+                            <h3 className="text-gray-800">割付可能運転手一覧</h3>
                         </div>
                     </div>
 
-                    <div className="shrink-0">
+                    <div className="shrink-0 w-[80%]">
                         <div className="flex flex-col gap-1">
-                            <label className="text-sm font-bold text-gray-700">仕業ID</label>
+                            <label className="text-[20px] text-gray-700">仕業ID</label>
                             <Input
                                 type="text"
                                 placeholder="仕業を選択"
@@ -46,10 +45,10 @@ export default function DriverListSection({ className, driverCategories, history
                         </div>
                     </div>
 
-                    <div className="flex-1 grid grid-cols-6 gap-2 min-h-0 overflow-hidden">
+                    <div className="flex-1 flex gap-2 min-h-0 overflow-x-auto">
                         {driverCategories.map((cat, index) => (
-                            <Card key={index} className="flex flex-col h-full overflow-hidden rounded-lg border-gray-200 p-0 gap-0">
-                                <div className={cn("py-2 px-3 text-center text-sm font-bold text-gray-700", cat.headerColor)}>
+                            <Card key={index} className="w-[218px] shrink-0 flex flex-col h-full overflow-hidden rounded-lg border-gray-200 p-0 gap-0">
+                                <div className={cn("h-[42px] flex items-center justify-center px-3 text-sm font-bold text-gray-700", cat.headerColor)}>
                                     <div>
                                         {cat.title}
                                         <span className="text-xs font-normal text-gray-600">({cat.drivers.length})</span>
@@ -70,7 +69,7 @@ export default function DriverListSection({ className, driverCategories, history
                     </div>
                 </div>
 
-                <div className="w-[380px] shrink-0">
+                <div className="w-[550px] shrink-0">
                     <HistoryPanel logs={historyLogs} onReset={onReset} />
                 </div>
             </div>

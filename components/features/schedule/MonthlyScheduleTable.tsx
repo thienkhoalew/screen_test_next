@@ -20,7 +20,7 @@ import { TaskCard } from "@/components/shared/cards";
 import { FOOTER_DATA } from "@/data/details";
 import { Driver, DailyStatus } from "@/types";
 import { ComponentType } from "react";
-
+import { getWeekday, isSunday } from "@/lib/weekday-utils";
 export interface MonthlyScheduleTableProps {
     drivers: Driver[];
     unassignedWorks?: Record<number, DailyStatus[]>;
@@ -74,38 +74,49 @@ export function MonthlyScheduleTable({
 
     const tableContent = (
         <TooltipProvider>
-            <div className="overflow-auto h-full w-full">
-                <Table className="border-collapse border border-gray-300 min-w-max">
-                    <TableHeader className="bg-gray-50 sticky top-0 z-40">
-                        <TableRow className="h-16">
-                            <TableHead className="w-24 border border-gray-300 bg-gray-100 text-center text-black font-bold sticky left-0 z-50">勤務<br />グループ</TableHead>
-                            <TableHead className="w-32 border border-gray-300 bg-gray-100 text-center text-black font-bold text-nowrap sticky left-24 z-50">運転手</TableHead>
-                            {DATES.map((day) => (
-                                <TableHead key={day} className="w-16 border border-gray-300 bg-gray-50 text-center p-1 min-w-[4rem]">
-                                    <HeaderDateCell day={day} />
-                                </TableHead>
-                            ))}
-                            <TableHead className="w-20 border border-gray-300 bg-gray-100 text-center text-black font-bold text-xs sticky right-[400px] z-50 shadow-[-1px_0_0_0_rgba(209,213,219,1)]">出勤日数</TableHead>
-                            <TableHead className="w-20 border border-gray-300 bg-gray-100 text-center text-black font-bold text-xs sticky right-[320px] z-50">休日日数</TableHead>
-                            <TableHead className="w-20 border border-gray-300 bg-gray-100 text-center text-black font-bold text-xs sticky right-[240px] z-50">拘束時間</TableHead>
-                            <TableHead className="w-20 border border-gray-300 bg-gray-100 text-center text-black font-bold text-xs sticky right-[160px] z-50">ハンドル時間</TableHead>
-                            <TableHead className="w-20 border border-gray-300 bg-gray-100 text-center text-black font-bold text-xs sticky right-[80px] z-50">ヘビー仕業</TableHead>
-                            <TableHead className="w-20 border border-gray-300 bg-gray-100 text-center text-black font-bold text-xs sticky right-0 z-50">サブ仕業</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
+            <div className="overflow-auto h-full w-full max-h-[600px]">
+                <table className="min-w-max w-full text-xs" style={{ borderCollapse: 'separate', borderSpacing: 0 }}>
+                    {/* Header - Sticky Top */}
+                    <thead className="sticky top-0 z-40">
+                        <tr className="h-[45px] text-[12px]">
+                            <th className="w-[60px] bg-[#F9FAFB] text-center text-black font-bold sticky left-0 z-50 border border-gray-300">勤務<br />グループ</th>
+                            <th className="w-[80px] bg-[#EFF6FF] text-center text-black font-bold text-nowrap sticky left-[60px] z-50 border border-gray-300">運転手</th>
+                            {DATES.map((day) => {
+                                const weekday = getWeekday(day, 1); // Monday start
+                                const isSun = isSunday(weekday);
+                                return (
+                                    <th
+                                        key={day}
+                                        className={`w-[50px] border border-gray-300 text-center text-[#6A7282] p-1 min-w-[4rem] ${isSun ? 'bg-[#FDF2F8]' : 'bg-gray-50'
+                                            }`}
+                                    >
+                                        <HeaderDateCell day={day} />
+                                    </th>
+                                );
+                            })}
+                            <th className="w-[65px] bg-[#EFF6FF] text-center text-black font-bold sticky right-[400px] z-50 border border-gray-300 shadow-[-2px_0_0_0_rgb(209_213_219)]">出勤日数</th>
+                            <th className="w-[65px] bg-[#EFF6FF] text-center text-black font-bold sticky right-[320px] z-50 border border-gray-300">休日日数</th>
+                            <th className="w-[65px] bg-[#EFF6FF] text-center text-black font-bold sticky right-[240px] z-50 border border-gray-300">拘束時間</th>
+                            <th className="w-[78px] bg-[#EFF6FF] text-center text-black font-bold sticky right-[160px] z-50 border border-gray-300">ハンドル時間</th>
+                            <th className="w-[81px] bg-[#EFF6FF] text-center text-black font-bold sticky right-[80px] z-50 border border-gray-300">ヘビー仕業</th>
+                            <th className="w-[78px] bg-[#EFF6FF] text-center text-black font-bold sticky right-0 z-50 border border-gray-300">サブ仕業</th>
+                        </tr>
+                    </thead>
+
+                    {/* Body - Scrollable */}
+                    <tbody>
                         {drivers.map((driver) => (
-                            <TableRow key={driver.id} className="h-16 hover:bg-transparent group">
-                                <TableCell className="border border-gray-300 text-center py-2 sticky left-0 z-30 bg-gray-50 font-medium text-xs">{driver.group}</TableCell>
-                                <TableCell className="border border-gray-300 text-center py-2 sticky left-24 z-30 bg-white font-medium text-sm whitespace-nowrap">{driver.name}</TableCell>
+                            <tr key={driver.id} className="h-[55px] hover:bg-transparent group">
+                                <td className="w-[60px] text-center sticky left-0 z-30 bg-[#F9FAFB] border border-gray-300">{driver.group}</td>
+                                <td className="w-[80px] text-center sticky left-[60px] z-30 bg-[#EFF6FF] border border-gray-300">{driver.name}</td>
                                 {DATES.map((day) => {
                                     const status = driver.schedule[day] || null;
                                     const s = Array.isArray(status) ? status[0] : status;
                                     const isHelp = s?.type === "help";
                                     return (
-                                        <TableCell
+                                        <td
                                             key={day}
-                                            className={`border border-gray-300 text-center p-1 min-w-[4rem] align-top relative ${isHelp ? "bg-[#666D78]" : ""
+                                            className={`border border-gray-300 text-center p-0.5 min-w-[4rem] align-top relative ${isHelp ? "bg-[#666D78]" : ""
                                                 }`}
                                         >
                                             <StatusCell
@@ -120,88 +131,105 @@ export function MonthlyScheduleTable({
                                                 showPopover={showPopover}
                                                 AssistantTaskAlert={AssistantTaskAlert}
                                             />
-                                        </TableCell>
+                                        </td>
                                     );
                                 })}
-                                <TableCell className="border border-gray-300 text-center text-sm bg-gray-50 sticky right-[400px] z-30 shadow-[-1px_0_0_0_rgba(209,213,219,1)]">{driver.stats.workDays}</TableCell>
-                                <TableCell className="border border-gray-300 text-center text-sm bg-gray-50 sticky right-[320px] z-30">{driver.stats.holidayDays}</TableCell>
-                                <TableCell className="border border-gray-300 text-center text-sm bg-gray-50 sticky right-[240px] z-30">{driver.stats.constraintTime}</TableCell>
-                                <TableCell className="border border-gray-300 text-center text-sm bg-gray-50 sticky right-[160px] z-30">{driver.stats.handleTime}</TableCell>
-                                <TableCell className="border border-gray-300 text-center text-sm bg-gray-50 sticky right-[80px] z-30">{driver.stats.heavyWork}</TableCell>
-                                <TableCell className="border border-gray-300 text-center text-sm bg-gray-50 sticky right-0 z-30">{driver.stats.subWork}</TableCell>
-                            </TableRow>
+                                <td className="w-20 text-center bg-[#EFF6FF] sticky right-[400px] z-30 border border-gray-300 shadow-[-2px_0_0_0_rgb(209_213_219)]">{driver.stats.workDays}</td>
+                                <td className="w-20 text-center bg-[#EFF6FF] sticky right-[320px] z-30 border border-gray-300">{driver.stats.holidayDays}</td>
+                                <td className="w-20 text-center bg-[#EFF6FF] sticky right-[240px] z-30 border border-gray-300">{driver.stats.constraintTime}</td>
+                                <td className="w-20 text-center bg-[#EFF6FF] sticky right-[160px] z-30 border border-gray-300">{driver.stats.handleTime}</td>
+                                <td className="w-20 text-center bg-[#EFF6FF] sticky right-[80px] z-30 border border-gray-300">{driver.stats.heavyWork}</td>
+                                <td className="w-20 text-center bg-[#EFF6FF] sticky right-0 z-30 border border-gray-300">{driver.stats.subWork}</td>
+                            </tr>
                         ))}
+                    </tbody>
 
-                        {showFooterRows && (
-                            <>
-                                {showUnassignedWorks && (
-                                    <TableRow className="bg-yellow-50 font-medium h-20">
-                                        <TableCell colSpan={2} className="border border-gray-300 text-center py-2 sticky left-0 z-30 bg-yellow-50">未割付仕業番号</TableCell>
-                                        {DATES.map((day) => {
-                                            const tasks = unassignedWorks[day as keyof typeof unassignedWorks];
-                                            return (
-                                                <TableCell key={day} className="border border-gray-300 text-center py-1 text-xs px-1 align-top min-w-[4rem]">
-                                                    {tasks && tasks.map((task, idx) => task && (
-                                                        <Draggable key={idx} id={`unassigned-${day}-${idx}`} data={task} className="mb-1">
-                                                            <Tooltip>
-                                                                <TooltipTrigger asChild>
-                                                                    <div className="cursor-grab active:cursor-grabbing">
-                                                                        <TaskCard
-                                                                            code={task.code || ""}
-                                                                            value={task.value || ""}
-                                                                            hideValue={true}
-                                                                            className="bg-gray-100 border border-gray-200 rounded shadow-sm"
-                                                                        />
-                                                                    </div>
-                                                                </TooltipTrigger>
-                                                                <TooltipContent>
-                                                                    <p className="font-bold">{task.code || ""}</p>
-                                                                    <p className="text-xs">出勤時間 {task.startTime || ""} 退勤時間 {task.endTime || ""}</p>
-                                                                    <p className="text-xs">拘束時間 {task.constraintTime || ""} 走行距離 {task.distance || ""}</p>
-                                                                </TooltipContent>
-                                                            </Tooltip>
-                                                        </Draggable>
-                                                    ))}
-                                                </TableCell>
-                                            );
-                                        })}
-                                        {showHistoryPanel && HistoryPanel ? (
-                                            <TableCell colSpan={6} rowSpan={3} className="bg-gray-100 border border-gray-300 sticky right-0 z-30 shadow-[-1px_0_0_0_rgba(209,213,219,1)] p-2 align-top">
+                    {/* Footer - Sticky Bottom */}
+                    {showFooterRows && (
+                        <tfoot className="sticky bottom-0 z-40">
+                            {showUnassignedWorks && (
+                                <tr className="bg-[#FEFCE8] font-medium h-[49px]">
+                                    <td colSpan={2} className="text-center sticky left-0 z-50 bg-[#FEFCE8] border border-gray-300">未割付仕業数</td>
+                                    {DATES.map((day) => {
+                                        const count = displayFooter.unassignedWorkCount?.[day as keyof typeof displayFooter.unassignedWorkCount];
+                                        return (
+                                            <td key={day} className="border border-gray-300 text-center min-w-[4rem]">
+                                                {count !== undefined && count !== 0 && <span className="text-gray-700">{count}</span>}
+                                            </td>
+                                        );
+                                    })}
+                                    {showHistoryPanel && HistoryPanel ? (
+                                        <td colSpan={6} rowSpan={4} className="w-[480px] bg-gray-100 sticky right-0 z-50 p-2 align-top border border-gray-300 shadow-[-2px_0_0_0_rgb(209_213_219)]">
+                                            <div className="h-[196px]">
                                                 <HistoryPanel logs={historyLogs} onReset={onReset || (() => { })} />
-                                            </TableCell>
-                                        ) : (
-                                            <TableCell colSpan={6} rowSpan={3} className="bg-gray-100 border border-gray-300 sticky right-0 z-30"></TableCell>
-                                        )}
-                                    </TableRow>
-                                )}
+                                            </div>
+                                        </td>
+                                    ) : (
+                                        <td colSpan={6} rowSpan={4} className="w-[480px] bg-gray-100 sticky right-0 z-50 border border-gray-300"></td>
+                                    )}
+                                </tr>
+                            )}
 
-                                <TableRow className="bg-red-50 font-medium">
-                                    <TableCell colSpan={2} className="border border-gray-300 text-center py-2 sticky left-0 z-30 bg-red-50">不足数</TableCell>
+                            {showUnassignedWorks && (
+                                <tr className="bg-[#FEFCE8] h-[49px]">
+                                    <td colSpan={2} className="text-center sticky left-0 z-50 bg-[#FEFCE8] border border-gray-300">未割付仕業番号</td>
                                     {DATES.map((day) => {
-                                        const count = displayFooter.shortage?.[day as keyof typeof displayFooter.shortage];
+                                        const tasks = unassignedWorks[day as keyof typeof unassignedWorks];
                                         return (
-                                            <TableCell key={day} className="border border-gray-300 text-center py-2 min-w-[4rem]">
-                                                {count && <span className="text-red-500 font-bold">{count}</span>}
-                                            </TableCell>
+                                            <td key={day} className="border border-gray-300 text-center min-w-[4rem]">
+                                                {tasks && tasks.map((task, idx) => task && (
+                                                    <Draggable key={idx} id={`unassigned-${day}-${idx}`} data={task} className="mb-1">
+                                                        <Tooltip>
+                                                            <TooltipTrigger asChild>
+                                                                <div className="cursor-grab active:cursor-grabbing">
+                                                                    <TaskCard
+                                                                        code={task.code || ""}
+                                                                        value={task.value || ""}
+                                                                        hideValue={true}
+                                                                        className="bg-[#F3F4F6] border border-gray-200 rounded-[4px] h-[19px] w-[80%] mx-auto shadow-sm gap-0 py-0"
+                                                                    />
+                                                                </div>
+                                                            </TooltipTrigger>
+                                                            <TooltipContent>
+                                                                <p className="font-bold">{task.code || ""}</p>
+                                                                <p className="text-xs">出勤時間 {task.startTime || ""} 退勤時間 {task.endTime || ""}</p>
+                                                                <p className="text-xs">拘束時間 {task.constraintTime || ""} 走行距離 {task.distance || ""}</p>
+                                                            </TooltipContent>
+                                                        </Tooltip>
+                                                    </Draggable>
+                                                ))}
+                                            </td>
                                         );
                                     })}
-                                </TableRow>
+                                </tr>
+                            )}
 
-                                <TableRow className="bg-green-50 font-medium">
-                                    <TableCell colSpan={2} className="border border-gray-300 text-center py-2 sticky left-0 z-30 bg-green-50">外部応援見込数</TableCell>
-                                    {DATES.map((day) => {
-                                        const count = displayFooter.scanExpectation?.[day as keyof typeof displayFooter.scanExpectation];
-                                        return (
-                                            <TableCell key={day} className="border border-gray-300 text-center py-2 text-gray-700 min-w-[4rem]">
-                                                {count}
-                                            </TableCell>
-                                        );
-                                    })}
-                                </TableRow>
-                            </>
-                        )}
-                    </TableBody>
-                </Table>
+                            <tr className="bg-[#FEF2F2] h-[49px]">
+                                <td colSpan={2} className="text-center sticky left-0 z-50 bg-[#FEF2F2] border border-gray-300">不足数</td>
+                                {DATES.map((day) => {
+                                    const count = displayFooter.shortage?.[day as keyof typeof displayFooter.shortage];
+                                    return (
+                                        <td key={day} className="h-[49px] border border-gray-300 text-center min-w-[4rem]">
+                                            {count && <span className="text-red-500 font-bold">{count}</span>}
+                                        </td>
+                                    );
+                                })}
+                            </tr>
+
+                            <tr className="bg-[#F0FDF4] h-[49px]">
+                                <td colSpan={2} className="text-center sticky left-0 z-50 bg-[#F0FDF4] border border-gray-300">外部応援見込数</td>
+                                {DATES.map((day) => {
+                                    const count = displayFooter.scanExpectation?.[day as keyof typeof displayFooter.scanExpectation];
+                                    return (
+                                        <td key={day} className="border border-gray-300 text-center min-w-[4rem]">
+                                            {count}
+                                        </td>
+                                    );
+                                })}
+                            </tr>
+                        </tfoot>
+                    )}
+                </table>
             </div>
         </TooltipProvider>
     );

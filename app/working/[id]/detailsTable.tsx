@@ -1,8 +1,8 @@
 "use client";
 
-import { forwardRef, useImperativeHandle } from "react";
+import { forwardRef, useImperativeHandle, useMemo } from "react";
 import { MonthlyScheduleTable } from "@/components/features/schedule/MonthlyScheduleTable";
-import { HeaderDateCell } from "@/app/working/[id]/components/HeaderDateCell";
+import { createHeaderDateCell } from "@/components/shared/table";
 import { StatusCell } from "@/components/shared/table";
 import { HistoryPanel } from "@/app/working/[id]/components/HistoryPanel";
 import { AssistantTaskAlert } from "@/app/working/[id]/components/AssistantTaskAlert";
@@ -33,6 +33,21 @@ const DetailsTable = forwardRef<DetailsTableRef>((props, ref) => {
             unassignedWorks
         })
     }));
+
+    const HeaderDateCell = useMemo(
+        () => createHeaderDateCell({
+            startDayOfWeek: 1,
+            saturdayLabel: "学休",
+            sundayLabel: "学休",
+            weekdayLabel: "平日",
+            highlightWeekend: true,
+            saturdayColor: "text-blue-500",
+            sundayColor: "text-[#FB2C36] bg-[#FDF2F8]",
+            useSeparateWeekendColors: true,
+            workingId: "1",
+        }),
+        []
+    );
 
     return (
         <MonthlyScheduleTable

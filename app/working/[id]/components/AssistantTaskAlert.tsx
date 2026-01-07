@@ -12,13 +12,13 @@ export const AssistantTaskAlert = ({ code, value }: { code: string; value: strin
             <PopoverTrigger asChild>
                 <div
                     onClick={(e) => { e.stopPropagation(); setOpen(true); }}
-                    className="flex-1 w-full h-full cursor-pointer hover:opacity-80"
+                    className="flex-1 w-full h-full cursor-pointer hover:opacity-80 flex items-center justify-center"
                 >
                     <TaskCard
                         code={code}
                         value={value}
                         hideValue={true}
-                        className="h-full w-full bg-white border border-gray-300 shadow-sm"
+                        className="w-[80%] mx-auto bg-[#F3F4F6] border border-gray-200 rounded-[4px] h-[19px] shadow-sm gap-0 py-0"
                     />
                 </div>
             </PopoverTrigger>

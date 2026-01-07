@@ -105,7 +105,7 @@ export const StatusCell = ({
                                                     code=""
                                                     value=""
                                                     hideValue={true}
-                                                    className="w-full bg-red-200 hover:bg-red-300 border border-red-200 rounded shadow-sm min-h-[20px]"
+                                                    className="w-[80%] mx-auto bg-[#FFCCCC] hover:bg-red-300 border border-[#FFCCCC] rounded-[4px] h-[19px] shadow-sm gap-0 py-0"
                                                 />
                                             </div>
                                         </PopoverTrigger>
@@ -138,7 +138,7 @@ export const StatusCell = ({
                                             code=""
                                             value=""
                                             hideValue={true}
-                                            className="w-full bg-red-200 hover:bg-red-300 border border-red-200 rounded shadow-sm min-h-[20px]"
+                                            className="w-[80%] mx-auto bg-[#FFCCCC] hover:bg-red-300 border border-[#FFCCCC] rounded-[4px] h-[19px] shadow-sm gap-0 py-0"
                                         />
                                     </div>
                                 );
@@ -149,8 +149,13 @@ export const StatusCell = ({
                                 return <AssistantTaskAlert key={idx} code={s.code || ""} value={s.value || ""} />;
                             } else {
                                 return (
-                                    <div key={idx} className="w-full">
-                                        <TaskCard code={s.code || ""} value={s.value || ""} hideValue={true} />
+                                    <div key={idx} className="w-full cursor-grab active:cursor-grabbing">
+                                        <TaskCard
+                                            code={s.code || ""}
+                                            value={s.value || ""}
+                                            hideValue={true}
+                                            className="w-[80%] mx-auto bg-[#F3F4F6] border border-gray-200 rounded-[4px] h-[19px] shadow-sm gap-0 py-0"
+                                        />
                                     </div>
                                 );
                             }
@@ -162,13 +167,13 @@ export const StatusCell = ({
                             </div>
                         );
                     } else if (s.type === "holiday") {
-                        return <div key={idx} className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 text-blue-600 font-bold mx-auto">{s.statusText}</div>;
+                        return <div key={idx} className="flex h-[22px] w-[26px] items-center justify-center rounded-lg bg-[#DBEAFE] border border-[#BEDBFF] text-[#193CB8] mx-auto">{s.statusText}</div>;
                     } else if (s.type === "paid") {
-                        return <div key={idx} className="flex h-10 w-10 items-center justify-center rounded-full bg-green-100 text-green-600 font-bold mx-auto">{s.statusText}</div>;
+                        return <div key={idx} className="flex h-[22px] w-[26px] items-center justify-center rounded-lg bg-[#F3E8FE] border border-[#DFC9F1] text-[#8A4FBC] mx-auto">{s.statusText}</div>;
                     } else if (s.type === "unknown") {
-                        return <div key={idx} className="flex h-10 w-10 items-center justify-center rounded-full bg-orange-100 text-orange-600 font-bold mx-auto">{s.statusText}</div>;
+                        return <div key={idx} className="flex h-[22px] w-[26px] items-center justify-center rounded-lg bg-[#FEF9C2] border border-[#FFF085] text-[#894B00] mx-auto">{s.statusText}</div>;
                     } else if (s.type === "unavailable") {
-                        return <div key={idx} className="flex-1 w-full rounded bg-red-100 text-red-600 font-bold flex items-center justify-center text-xs min-h-[1.25rem]">{s.statusText}</div>;
+                        return <div key={idx} className="flex h-[22px] w-[26px] items-center justify-center rounded-lg bg-[#E1A9A8] border border-[#FEE1E1] text-[#9A2422] mx-auto">{s.statusText}</div>;
                     } else if (s.type === "help") {
                         return <div key={idx} className="h-full w-full flex items-center justify-center text-[10px] text-white bg-[#666D78]">{s.statusText}</div>;
                     }
