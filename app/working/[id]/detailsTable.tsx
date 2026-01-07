@@ -1,80 +1,53 @@
 "use client";
 
-import {
-    Table,
-    TableHeader,
-    TableRow,
-    TableHead,
-    TableBody,
-    TableCell,
-} from "@/components/ui/table";
-import { cn } from "@/lib/utils";
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipProvider,
-    TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { DailyStatus, Driver, DriverStats } from "@/types";
+import { forwardRef, useImperativeHandle, useMemo } from "react";
+import { MonthlyScheduleTable } from "@/components/features/schedule/MonthlyScheduleTable";
+import { createHeaderDateCell } from "@/components/shared/table";
+import { StatusCell } from "@/components/shared/table";
+import { HistoryPanel } from "@/app/working/[id]/components/HistoryPanel";
+import { AssistantTaskAlert } from "@/app/working/[id]/components/AssistantTaskAlert";
+import { useScheduleBoard } from "@/app/working/[id]/hooks/useScheduleBoard";
+import { Driver, DailyStatus } from "@/types";
 
-const DATES = Array.from({ length: 18 }, (_, i) => i + 14);
-const WEEKADAYS = ["火", "水", "木", "金", "土", "日", "月"];
+export interface DetailsTableRef {
+    getScheduleData: () => {
+        drivers: Driver[];
+        unassignedWorks: Record<number, DailyStatus[]>;
+    };
+}
 
-const getWeekday = (day: number) => {
-    const index = (day - 14) % 7;
-    return WEEKADAYS[index];
-};
+const DetailsTable = forwardRef<DetailsTableRef>((props, ref) => {
+    const {
+        drivers,
+        unassignedWorks,
+        historyLogs,
+        handleDragEnd,
+        handleStatusChange,
+        handleTaskAssignment,
+        handleReset
+    } = useScheduleBoard();
 
-const isWeekend = (day: number) => {
-    const wd = getWeekday(day);
-    return wd === "土" || wd === "日";
-};
+    useImperativeHandle(ref, () => ({
+        getScheduleData: () => ({
+            drivers,
+            unassignedWorks
+        })
+    }));
 
-import { MOCK_DRIVERS, FOOTER_DATA } from "@/data/details";
-
-const StatusCell = ({ status, day }: { status: DailyStatus; day: number }) => {
-    if (!status) return <div className="h-full w-full"></div>;
-
-    if (status.type === "holiday") {
-        return (
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 text-blue-600 font-bold mx-auto">
-                {status.statusText}
-            </div>
-        );
-    }
-    if (status.type === "paid") {
-        return (
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-100 text-green-600 font-bold mx-auto">
-                {status.statusText}
-            </div>
-        );
-    }
-    if (status.type === "unknown") {
-        return (
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-orange-100 text-orange-600 font-bold mx-auto">
-                {status.statusText}
-            </div>
-        );
-    }
-    if (status.type === "special") {
-        return (
-            <div className="h-10 w-10 bg-red-200 rounded-md mx-auto"></div>
-        )
-    }
-
-    // Work type
-    return (
-        <div className="flex flex-col items-center justify-center text-xs font-semibold text-gray-700">
-            <span className="text-[10px] text-gray-500">{status.code}</span>
-            <span className="bg-gray-100 px-1 rounded text-gray-400">{status.value}</span>
-        </div>
+    const HeaderDateCell = useMemo(
+        () => createHeaderDateCell({
+            startDayOfWeek: 1,
+            saturdayLabel: "学休",
+            sundayLabel: "学休",
+            weekdayLabel: "平日",
+            highlightWeekend: true,
+            saturdayColor: "text-blue-500",
+            sundayColor: "text-[#FB2C36] bg-[#FDF2F8]",
+            useSeparateWeekendColors: true,
+            workingId: "1",
+        }),
+        []
     );
-};
-
-const HeaderDateCell = ({ day }: { day: number }) => {
-    const weekday = getWeekday(day);
-    const isSat = weekday === "土";
-    const isSun = weekday === "日";
 
     return (
         <div className="flex flex-col items-center justify-center h-full">

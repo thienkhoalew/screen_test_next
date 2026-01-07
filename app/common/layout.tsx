@@ -11,17 +11,31 @@ export default function CommonLayout(
   const router = useRouter();
 
   return (
-    <div className="h-screen bg-gray-50 pt-2 flex flex-col overflow-hidden">
+    <div className="w-[97%] mx-auto flex flex-col overflow-hidden">
 
-      <header className="w-full shrink-0">
-        <div className="max-w-[1500px] mx-auto px-4 flex items-center gap-4">
+      <header className="shrink-0">
+        <div className="w-full flex items-center gap-4">
 
-          <div className="flex-1 bg-[#c7dfff] py-3 rounded-lg text-center text-[25px] shadow-sm">
+          <div className="flex-1 bg-[#BEDBFF] rounded text-center text-[40px] shadow-sm mt-4">
             共通ヘッダー
           </div>
 
           <Button
-            variant="circleIcon"
+            className="
+            flex-col
+            gap-[2px]
+            rounded-full
+            bg-[linear-gradient(180deg,#E5E7EB_0%,#F3F4F6_50%,#D1D5DC_100%)]
+            border-[1.11px]
+            border-[#D1D5DC]
+            shadow-[0_4px_6px_-4px_rgba(0,0,0,0.1),0_10px_15px_-3px_rgba(0,0,0,0.1)]
+            hover:shadow-[0_6px_12px_-2px_rgba(0,0,0,0.15)]
+            active:scale-95 transition-all
+            h-[80px] w-[80px]
+            items-center
+            justify-center
+            text-black
+            mt-2"
             size="button-back"
             onClick={() => router.back()}
           >
@@ -32,7 +46,7 @@ export default function CommonLayout(
         </div>
       </header>
 
-      <main className="mx-auto max-w-[1500px] w-full flex-1 overflow-auto">
+      <main className="w-full flex-1 overflow-auto">
         {children}
       </main>
 
