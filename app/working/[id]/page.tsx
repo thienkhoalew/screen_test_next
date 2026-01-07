@@ -1,6 +1,6 @@
 "use client";
 
-import { use } from "react";
+import { use, useRef } from "react";
 import { Button } from "@/components/ui/button";
 <<<<<<< Updated upstream
 import TableWrapper from "@/components/ui/table-wrapper";
@@ -18,6 +18,27 @@ export default function WorkingDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = use(params);
+  const detailsTableRef = useRef<DetailsTableRef>(null);
+
+  const handleSubmit = () => {
+    if (detailsTableRef.current) {
+      const scheduleData = detailsTableRef.current.getScheduleData();
+
+      console.log("=== 作成実行 - Schedule Data ===");
+      console.log("Drivers:", scheduleData.drivers);
+      console.log("Unassigned Works:", scheduleData.unassignedWorks);
+
+      scheduleData.drivers.forEach((driver, index) => {
+        console.log(`\nDriver ${index + 1}:`, {
+          id: driver.id,
+          name: driver.name,
+          schedule: driver.schedule
+        });
+      });
+
+      console.log("\n=== End Schedule Data ===");
+    }
+  };
 
   return (
     <div className="w-full h-full flex flex-col overflow-x-auto overflow-y-auto min-w-[800px] mt-2">
@@ -81,3 +102,4 @@ export default function WorkingDetailPage({
 
   );
 }
+

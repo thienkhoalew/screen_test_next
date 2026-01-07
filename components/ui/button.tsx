@@ -19,8 +19,8 @@ const buttonVariants = cva(
         ghost:
           "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
         link: "text-primary underline-offset-4 hover:underline",
-        circleIcon: "flex-col gap-0.5 rounded-full bg-white shadow-lg hover:shadow-xl transition-shadow h-15 w-15 items-center justify-center",
         customBlue: "h-9 bg-blue-600 text-white hover:bg-blue-700",
+        customWhite: "h-9 w-45 bg-white text-black border border-gray-300 hover:bg-gray-100",
         menu: "bg-transparent text-white h-12 px-8 text-base flex items-center justify-center hover:bg-blue-700/30 transition",
         menuActive: "bg-blue-600 text-white h-12 px-8 text-base flex items-center justify-center",
         big_lightblue: "bg-blue-100 text-black hover:bg-blue-200 shadow rounded-none text-2xl h-[300px] flex items-center justify-center w-[500px] border-none",
